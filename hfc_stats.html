@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heritage Lions — Player Stats</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,600;1,700&family=Source+Serif+4:ital,wght@0,400;0,500;0,600;1,500&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream: #f7f3ea;
+    --cream-dim: #efe9db;
+    --ink: #17181c;
+    --ink-soft: #2b2c31;
+    --navy: #1b2a4a;
+    --navy-deep: #101a30;
+    --gold: #a9822f;
+    --gold-soft: #c79f4f;
+    --line: rgba(23,24,28,0.14);
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; background: var(--cream); color: var(--ink);
+    font-family:'Source Serif 4', Georgia, serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .eyebrow{
+    font-family:'Jost', sans-serif; font-size:11px; letter-spacing:0.16em;
+    text-transform:uppercase; color: var(--gold); font-weight:600;
+  }
+  h1,h2,h3,.serif{ font-family:'Playfair Display', Georgia, serif; margin:0; }
+
+  /* Top bar */
+  .topbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 18px 40px; border-bottom:1px solid var(--line);
+    background: var(--cream); position:sticky; top:0; z-index:20;
+  }
+  .back-link{
+    font-family:'Jost', sans-serif; font-size:12.5px; letter-spacing:0.08em;
+    text-transform:uppercase; font-weight:600; color: var(--ink-soft);
+    text-decoration:none; display:flex; align-items:center; gap:8px;
+  }
+  .back-link:hover{ color: var(--ink); }
+  .topbar-title{ display:flex; align-items:center; gap:12px; }
+  .topbar-title .crest{
+    width:34px; height:34px; border-radius:50%; background: var(--navy);
+    border:1px solid var(--gold); display:flex; align-items:center; justify-content:center;
+    font-family:'Playfair Display', serif; font-weight:700; font-size:12px; color: var(--gold-soft);
+  }
+  .topbar-title .t{ font-family:'Playfair Display', serif; font-weight:700; font-size:16.5px; }
+  .counter{
+    font-family:'Jost', sans-serif; font-size:11.5px; letter-spacing:0.1em;
+    text-transform:uppercase; color:#8b8b8b;
+  }
+
+  .page-wrap{ max-width: 1080px; margin: 0 auto; padding: 48px 40px 90px; }
+
+  .roster-strip{
+    display:flex; gap:10px; overflow-x:auto; padding-bottom: 8px; margin-bottom: 40px;
+  }
+  .roster-chip{
+    flex-shrink:0; display:flex; align-items:center; gap:9px;
+    padding: 9px 16px; border:1px solid var(--line); background:#fdfcf8;
+    cursor:pointer; transition: all .2s ease;
+  }
+  .roster-chip:hover{ border-color: var(--ink); }
+  .roster-chip.active{ background: var(--ink); border-color: var(--ink); }
+  .roster-chip.active .rc-num, .roster-chip.active .rc-name{ color: var(--cream); }
+  .roster-chip .rc-num{ font-family:'Playfair Display', serif; font-weight:700; font-size:13px; color: var(--gold); }
+  .roster-chip .rc-name{
+    font-family:'Jost', sans-serif; font-size:11.5px; letter-spacing:0.03em; color: var(--ink-soft);
+    white-space:nowrap;
+  }
+
+  /* Card */
+  .player-card{ border: 1px solid var(--line); background:#fdfcf8; }
+  .card-top{
+    display:grid; grid-template-columns: 240px 1fr; gap:0;
+    border-bottom: 1px solid var(--line);
+  }
+  .portrait-col{
+    padding: 30px; border-right: 1px solid var(--line);
+    display:flex; flex-direction:column; align-items:center; gap:18px;
+  }
+  .portrait{
+    position:relative; width:170px; height:190px;
+    background: linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 100%);
+    border: 2px solid var(--gold);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .portrait .initials{ font-family:'Playfair Display', serif; font-weight:800; font-size:46px; color: rgba(247,243,234,0.92); }
+  .rating-badge{ position:absolute; top:10px; left:10px; display:flex; flex-direction:column; align-items:center; line-height:1; }
+  .rating-badge .rn{ font-family:'Playfair Display', serif; font-weight:800; font-size:22px; color:#fbf8f1; }
+  .rating-badge .rp{ font-family:'Jost', sans-serif; font-size:10px; letter-spacing:0.08em; color: var(--gold-soft); margin-top:2px; text-transform:uppercase; }
+  .portrait-meta{ width:100%; }
+  .pm-row{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 8px 0; border-bottom:1px solid var(--line);
+    font-family:'Jost', sans-serif; font-size:11.5px; letter-spacing:0.06em;
+    text-transform:uppercase; color: var(--ink-soft);
+  }
+  .pm-row:last-child{ border-bottom:none; }
+  .stars{ color: var(--gold); letter-spacing:1px; font-size:12px; }
+
+  .info-col{ padding: 30px 34px; }
+  .name-block .first{ font-family:'Jost', sans-serif; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#8b8b8b; }
+  .name-block .last{ font-family:'Playfair Display', serif; font-weight:800; font-size:32px; margin-top:2px; }
+  .meta-line{
+    display:flex; flex-wrap:wrap; gap: 18px; margin-top: 14px; margin-bottom: 26px;
+    font-family:'Jost', sans-serif; font-size:12px; letter-spacing:0.04em; color:#8b8b8b;
+  }
+  .meta-line span b{ color: var(--ink); font-weight:600; }
+
+  /* Summary view */
+  .ovr-block{
+    display:flex; align-items:center; gap:16px; margin-bottom: 26px;
+    padding-bottom: 22px; border-bottom: 1px solid var(--line);
+  }
+  .ovr-num{ font-family:'Playfair Display', serif; font-weight:800; font-size:44px; color: var(--navy); }
+  .ovr-label{ font-family:'Jost', sans-serif; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:#8b8b8b; }
+  .summary-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 18px 30px; }
+  .summary-stat{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 14px 16px; border:1px solid var(--line); background: var(--cream);
+  }
+  .summary-stat .label{ font-family:'Jost', sans-serif; font-size:11.5px; letter-spacing:0.08em; text-transform:uppercase; color: var(--ink-soft); }
+  .summary-stat .val{ font-family:'Playfair Display', serif; font-weight:800; font-size:22px; }
+
+  /* Attributes (detailed) view */
+  .attr-grid{ display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 26px 30px; }
+  .attr-cat-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-bottom: 8px; margin-bottom: 10px; border-bottom: 1px solid var(--ink);
+  }
+  .attr-cat-head .cname{ font-family:'Jost', sans-serif; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; font-weight:600; color: var(--ink); }
+  .attr-cat-head .ctotal{ font-family:'Playfair Display', serif; font-weight:800; font-size:18px; }
+  .attr-row{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 5px 0; font-family:'Source Serif 4', serif; font-size:14px; color: var(--ink-soft);
+  }
+  .attr-row .aval{ font-family:'Jost', sans-serif; font-weight:600; font-size:13px; }
+
+  /* Traits view */
+  .traits-intro{
+    font-family:'Jost', sans-serif; font-size:11.5px; letter-spacing:0.08em;
+    text-transform:uppercase; color:#8b8b8b; margin-bottom:18px;
+  }
+  .traits-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .trait-chip{
+    display:flex; align-items:flex-start; gap:12px;
+    padding: 14px 16px; border:1px solid var(--line); background: var(--cream);
+  }
+  .trait-chip .tmark{
+    width:30px; height:30px; border-radius:50%; flex-shrink:0;
+    background: var(--navy); border:1px solid var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Playfair Display', serif; font-weight:700; font-size:13px; color: var(--gold-soft);
+  }
+  .trait-chip .tname{ font-family:'Playfair Display', serif; font-weight:700; font-size:15px; }
+  .trait-chip .tdesc{ font-family:'Source Serif 4', serif; font-size:13px; color: var(--ink-soft); margin-top:3px; line-height:1.4; }
+
+  /* Transfer view (placeholder) */
+  .transfer-block{
+    padding: 40px 10px; text-align:center;
+    border: 1px dashed var(--line);
+  }
+  .transfer-block .tt{ font-family:'Playfair Display', serif; font-weight:700; font-size:20px; margin-bottom:8px; }
+  .transfer-block .td{ font-family:'Source Serif 4', serif; font-size:14px; color:#8b8b8b; }
+
+  .tabbar{ display:flex; border-top: 1px solid var(--line); }
+  .tabbar .tab{
+    flex:1; text-align:center; padding: 15px 10px; background:none; border:none;
+    font-family:'Jost', sans-serif; font-size:11.5px; letter-spacing:0.1em;
+    text-transform:uppercase; font-weight:600; color:#9a9a9a;
+    border-bottom: 2px solid transparent; cursor:pointer; transition: color .2s ease;
+  }
+  .tabbar .tab:hover{ color: var(--ink-soft); }
+  .tabbar .tab.active{ color: var(--ink); border-bottom-color: var(--gold); }
+
+  .tab-content{ padding: 30px 34px 34px; }
+
+  .nav-row{ display:flex; align-items:center; justify-content:space-between; margin-top: 26px; }
+  .nav-btn{
+    font-family:'Jost', sans-serif; font-size:12px; letter-spacing:0.1em;
+    text-transform:uppercase; font-weight:600; padding: 13px 22px;
+    background: var(--ink); color: var(--cream); border:none; cursor:pointer;
+    transition: background .2s ease;
+  }
+  .nav-btn:hover{ background:#000; }
+  .nav-btn:disabled{ opacity:0.35; cursor:default; }
+
+  @media (max-width: 720px){
+    .topbar{ padding: 16px 20px; }
+    .page-wrap{ padding: 32px 20px 60px; }
+    .card-top{ grid-template-columns: 1fr; }
+    .portrait-col{ border-right:none; border-bottom:1px solid var(--line); }
+    .summary-grid{ grid-template-columns: repeat(2, 1fr); }
+    .attr-grid{ grid-template-columns: 1fr; }
+    .traits-grid{ grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="back-link" href="index.html">&larr; Back to Heritage F.L.</a>
+  <div class="topbar-title">
+    <div class="crest"><img src="resized_h_fc-removebg-preview.png"></div>
+    <div class="t">Heritage FC — Player Stats</div>
+  </div>
+  <div class="counter" id="counter">1 / 9</div>
+</div>
+
+<div class="page-wrap">
+  <div class="roster-strip" id="roster-strip"></div>
+  <div class="player-card" id="player-card"></div>
+  <div class="nav-row">
+    <button class="nav-btn" id="prev-btn">&larr; Previous</button>
+    <button class="nav-btn" id="next-btn">Next &rarr;</button>
+  </div>
+</div>
+
+<script>
+  // ---------------------------------------------------------------
+  // Heritage Lions squad data.
+  //
+  // Every player carries a `categories` breakdown (used by both the
+  // Summary tab — as headline totals — and the Attributes tab — as
+  // the full sub-stat view), plus a `traits` list for the Traits tab.
+  //
+  //  - GK  categories: Diving / Positioning / Handling / Reflexes / Kicking / Physical
+  //  - Outfield (DF/MF/FW) categories: Pace / Shooting / Passing / Dribbling / Defending / Physical
+  // ---------------------------------------------------------------
+  const lions = [
+    {
+      number: 1, first: "Thomas", last: "Whitfield", pos: "GK",
+      height: "188cm", weight: "84kg", age: 27, foot: "Right",
+      stamina: 4, skillMoves: 2, ovr: 84, type: "gk",
+      categories: {
+        Diving:      { total: 85, sub: { "Reflex Diving": 87, "Reach": 83 } },
+        Positioning: { total: 82, sub: { "Sweeper Positioning": 80, "Angle Coverage": 84 } },
+        Handling:    { total: 80, sub: { "Catching": 82, "Parrying": 78 } },
+        Reflexes:    { total: 88, sub: { "Reaction Save": 90, "One-on-One": 86 } },
+        Kicking:     { total: 65, sub: { "Goal Kicks": 68, "Short Kicks": 62 } },
+        Physical:    { total: 78, sub: { "Strength": 76, "Jumping": 80 } }
+      },
+      traits: [
+        { name: "Command of Area", desc: "Dominates crosses and claims the box with authority." },
+        { name: "Shot Stopper", desc: "Excels at reaction saves from close range." },
+        { name: "Long Throw", desc: "Starts counters quickly with an accurate long throw." },
+        { name: "Composed Distributor", desc: "Keeps possession under pressure from the back." }
+      ]
+    },
+    {
+      number: 2, first: "Edward", last: "Marsh", pos: "CB",
+      height: "186cm", weight: "82kg", age: 29, foot: "Right",
+      stamina: 4, skillMoves: 2, ovr: 79, type: "outfield",
+      categories: {
+        Pace:      { total: 78, sub: { "Acceleration": 80, "Sprint Speed": 76 } },
+        Shooting:  { total: 42, sub: { "Finishing": 35, "Long Shot": 40, "Shot Power": 55, "Positioning": 38, "Volleys": 30, "Penalties": 45 } },
+        Passing:   { total: 68, sub: { "Short Passing": 74, "Long Passing": 70, "Vision": 60, "Crossing": 55, "Curve": 50, "Free Kick": 40 } },
+        Dribbling: { total: 64, sub: { "Dribbling": 62, "Ball Control": 68, "Agility": 60, "Reactions": 70 } },
+        Defending: { total: 85, sub: { "Marking": 86, "Standing Tackle": 88, "Sliding Tackle": 84, "Awareness": 82 } },
+        Physical:  { total: 88, sub: { "Strength": 90, "Aggression": 85, "Jumping": 84 } }
+      },
+      traits: [
+        { name: "Aerial Threat", desc: "Wins the vast majority of duels in the air." },
+        { name: "Last-Ditch Tackle", desc: "Reads danger early and recovers to make the block." },
+        { name: "Composed Build-Up", desc: "Comfortable starting attacks from the back line." }
+      ]
+    },
+    {
+      number: 3, first: "Arthur", last: "Kensworth", pos: "CB",
+      height: "184cm", weight: "80kg", age: 26, foot: "Left",
+      stamina: 3, skillMoves: 2, ovr: 78, type: "outfield",
+      categories: {
+        Pace:      { total: 74, sub: { "Acceleration": 75, "Sprint Speed": 73 } },
+        Shooting:  { total: 38, sub: { "Finishing": 30, "Long Shot": 35, "Shot Power": 50, "Positioning": 34, "Volleys": 28, "Penalties": 42 } },
+        Passing:   { total: 70, sub: { "Short Passing": 76, "Long Passing": 68, "Vision": 62, "Crossing": 52, "Curve": 48, "Free Kick": 38 } },
+        Dribbling: { total: 62, sub: { "Dribbling": 60, "Ball Control": 65, "Agility": 58, "Reactions": 68 } },
+        Defending: { total: 87, sub: { "Marking": 88, "Standing Tackle": 90, "Sliding Tackle": 85, "Awareness": 84 } },
+        Physical:  { total: 84, sub: { "Strength": 85, "Aggression": 82, "Jumping": 80 } }
+      },
+      traits: [
+        { name: "Anticipation", desc: "Steps in early to cut out through balls." },
+        { name: "Physical Presence", desc: "Uses strength to shield the ball and win duels." },
+        { name: "Calm Under Pressure", desc: "Rarely rushes a clearance, even when closed down." }
+      ]
+    },
+    {
+      number: 4, first: "Henry", last: "Blackwood", pos: "RB",
+      height: "180cm", weight: "76kg", age: 24, foot: "Right",
+      stamina: 5, skillMoves: 3, ovr: 77, type: "outfield",
+      categories: {
+        Pace:      { total: 86, sub: { "Acceleration": 87, "Sprint Speed": 85 } },
+        Shooting:  { total: 45, sub: { "Finishing": 40, "Long Shot": 44, "Shot Power": 58, "Positioning": 42, "Volleys": 35, "Penalties": 46 } },
+        Passing:   { total: 72, sub: { "Short Passing": 76, "Long Passing": 68, "Vision": 66, "Crossing": 74, "Curve": 60, "Free Kick": 44 } },
+        Dribbling: { total: 72, sub: { "Dribbling": 74, "Ball Control": 73, "Agility": 76, "Reactions": 70 } },
+        Defending: { total: 79, sub: { "Marking": 80, "Standing Tackle": 82, "Sliding Tackle": 78, "Awareness": 76 } },
+        Physical:  { total: 76, sub: { "Strength": 74, "Aggression": 78, "Jumping": 75 } }
+      },
+      traits: [
+        { name: "Overlapping Run", desc: "Times forward runs to stretch the opposition wide." },
+        { name: "Crosser", desc: "Whips in dangerous deliveries at pace." },
+        { name: "Recovery Pace", desc: "Tracks back quickly to cover after joining attacks." }
+      ]
+    },
+    {
+      number: 5, first: "Percy", last: "Duncombe", pos: "LB",
+      height: "179cm", weight: "74kg", age: 25, foot: "Left",
+      stamina: 5, skillMoves: 3, ovr: 76, type: "outfield",
+      categories: {
+        Pace:      { total: 84, sub: { "Acceleration": 85, "Sprint Speed": 83 } },
+        Shooting:  { total: 40, sub: { "Finishing": 36, "Long Shot": 38, "Shot Power": 54, "Positioning": 37, "Volleys": 32, "Penalties": 40 } },
+        Passing:   { total: 71, sub: { "Short Passing": 75, "Long Passing": 66, "Vision": 64, "Crossing": 76, "Curve": 58, "Free Kick": 42 } },
+        Dribbling: { total: 73, sub: { "Dribbling": 75, "Ball Control": 74, "Agility": 77, "Reactions": 69 } },
+        Defending: { total: 77, sub: { "Marking": 78, "Standing Tackle": 80, "Sliding Tackle": 76, "Awareness": 74 } },
+        Physical:  { total: 73, sub: { "Strength": 70, "Aggression": 75, "Jumping": 72 } }
+      },
+      traits: [
+        { name: "Attacking Full-Back", desc: "Joins the front line as an auxiliary winger." },
+        { name: "Whipped Cross", desc: "Bends deliveries around defenders into the box." },
+        { name: "Two-Footed", desc: "Equally comfortable striking the ball with either foot." }
+      ]
+    },
+    {
+      number: 6, first: "William", last: "Ashcombe", pos: "CM",
+      height: "181cm", weight: "75kg", age: 27, foot: "Right",
+      stamina: 5, skillMoves: 4, ovr: 80, type: "outfield",
+      categories: {
+        Pace:      { total: 72, sub: { "Acceleration": 74, "Sprint Speed": 70 } },
+        Shooting:  { total: 68, sub: { "Finishing": 60, "Long Shot": 66, "Shot Power": 72, "Positioning": 64, "Volleys": 55, "Penalties": 60 } },
+        Passing:   { total: 82, sub: { "Short Passing": 86, "Long Passing": 80, "Vision": 84, "Crossing": 70, "Curve": 68, "Free Kick": 62 } },
+        Dribbling: { total: 78, sub: { "Dribbling": 80, "Ball Control": 82, "Agility": 76, "Reactions": 74 } },
+        Defending: { total: 60, sub: { "Marking": 58, "Standing Tackle": 62, "Sliding Tackle": 55, "Awareness": 64 } },
+        Physical:  { total: 74, sub: { "Strength": 72, "Aggression": 70, "Jumping": 68 } }
+      },
+      traits: [
+        { name: "Playmaker", desc: "Dictates tempo and picks out the incisive pass." },
+        { name: "Box-to-Box", desc: "Covers every blade of grass across 90 minutes." },
+        { name: "Long Passer", desc: "Switches play with pinpoint diagonal balls." }
+      ]
+    },
+    {
+      number: 8, first: "George", last: "Fairweather", pos: "CM",
+      height: "178cm", weight: "72kg", age: 24, foot: "Right",
+      stamina: 4, skillMoves: 4, ovr: 79, type: "outfield",
+      categories: {
+        Pace:      { total: 75, sub: { "Acceleration": 76, "Sprint Speed": 74 } },
+        Shooting:  { total: 65, sub: { "Finishing": 58, "Long Shot": 64, "Shot Power": 68, "Positioning": 60, "Volleys": 52, "Penalties": 58 } },
+        Passing:   { total: 80, sub: { "Short Passing": 84, "Long Passing": 82, "Vision": 81, "Crossing": 66, "Curve": 64, "Free Kick": 66 } },
+        Dribbling: { total: 76, sub: { "Dribbling": 77, "Ball Control": 79, "Agility": 74, "Reactions": 72 } },
+        Defending: { total: 58, sub: { "Marking": 55, "Standing Tackle": 60, "Sliding Tackle": 52, "Awareness": 62 } },
+        Physical:  { total: 72, sub: { "Strength": 68, "Aggression": 66, "Jumping": 70 } }
+      },
+      traits: [
+        { name: "Deep-Lying Playmaker", desc: "Sits in front of the back line to spring attacks." },
+        { name: "Set-Piece Specialist", desc: "First choice for corners and free kicks." },
+        { name: "Vision", desc: "Spots the through-ball before the gap even opens." }
+      ]
+    },
+    {
+      number: 9, first: "Frederick", last: "Lang", pos: "ST",
+      height: "183cm", weight: "78kg", age: 26, foot: "Right",
+      stamina: 4, skillMoves: 4, ovr: 83, type: "outfield",
+      categories: {
+        Pace:      { total: 88, sub: { "Acceleration": 89, "Sprint Speed": 87 } },
+        Shooting:  { total: 85, sub: { "Finishing": 88, "Long Shot": 78, "Shot Power": 84, "Positioning": 86, "Volleys": 80, "Penalties": 75 } },
+        Passing:   { total: 60, sub: { "Short Passing": 64, "Long Passing": 50, "Vision": 58, "Crossing": 45, "Curve": 55, "Free Kick": 40 } },
+        Dribbling: { total: 80, sub: { "Dribbling": 82, "Ball Control": 81, "Agility": 79, "Reactions": 78 } },
+        Defending: { total: 30, sub: { "Marking": 28, "Standing Tackle": 30, "Sliding Tackle": 25, "Awareness": 35 } },
+        Physical:  { total: 75, sub: { "Strength": 76, "Aggression": 70, "Jumping": 78 } }
+      },
+      traits: [
+        { name: "Clinical Finisher", desc: "Converts half-chances with cold efficiency." },
+        { name: "Poacher", desc: "Always finds the yard of space in the box." },
+        { name: "Aerial Threat", desc: "A constant danger from crosses and set pieces." }
+      ]
+    },
+    {
+      number: 10, first: "Albert", last: "Sterling", pos: "ST",
+      height: "177cm", weight: "73kg", age: 23, foot: "Left",
+      stamina: 4, skillMoves: 5, ovr: 81, type: "outfield",
+      categories: {
+        Pace:      { total: 85, sub: { "Acceleration": 87, "Sprint Speed": 83 } },
+        Shooting:  { total: 82, sub: { "Finishing": 84, "Long Shot": 74, "Shot Power": 80, "Positioning": 82, "Volleys": 76, "Penalties": 70 } },
+        Passing:   { total: 58, sub: { "Short Passing": 62, "Long Passing": 46, "Vision": 56, "Crossing": 50, "Curve": 60, "Free Kick": 42 } },
+        Dribbling: { total: 79, sub: { "Dribbling": 84, "Ball Control": 80, "Agility": 82, "Reactions": 74 } },
+        Defending: { total: 28, sub: { "Marking": 25, "Standing Tackle": 28, "Sliding Tackle": 22, "Awareness": 34 } },
+        Physical:  { total: 73, sub: { "Strength": 68, "Aggression": 65, "Jumping": 74 } }
+      },
+      traits: [
+        { name: "Pace Merchant", desc: "Runs in behind faster than defenders can react." },
+        { name: "Flair", desc: "Adds a touch of the unexpected in tight spaces." },
+        { name: "Dribbler", desc: "Beats a marker one-on-one at the first time of asking." }
+      ]
+    }
+  ];
+
+  let currentIndex = 0;
+  let currentTab = 'summary';
+
+  function starString(n){ return '★'.repeat(n) + '☆'.repeat(5 - n); }
+  function initials(p){ return (p.first[0] + p.last[0]).toUpperCase(); }
+
+  function summaryTabHTML(p){
+    const entries = Object.entries(p.categories).map(([label, cdata]) => [label, cdata.total]);
+    return `
+      <div class="ovr-block">
+        <div class="ovr-num">${p.ovr}</div>
+        <div class="ovr-label">Overall<br>Rating</div>
+      </div>
+      <div class="summary-grid">
+        ${entries.map(([label, val]) => `
+          <div class="summary-stat">
+            <span class="label">${label}</span>
+            <span class="val">${val}</span>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  function attributesTabHTML(p){
+    const cats = Object.entries(p.categories);
+    return `
+      <div class="attr-grid">
+        ${cats.map(([cname, cdata]) => `
+          <div class="attr-cat">
+            <div class="attr-cat-head">
+              <span class="cname">${cname}</span>
+              <span class="ctotal">${cdata.total}</span>
+            </div>
+            ${Object.entries(cdata.sub).map(([sname, sval]) => `
+              <div class="attr-row">
+                <span>${sname}</span>
+                <span class="aval">${sval}</span>
+              </div>
+            `).join('')}
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  function traitsTabHTML(p){
+    return `
+      <div class="traits-intro">${p.traits.length} Traits Recorded</div>
+      <div class="traits-grid">
+        ${p.traits.map(t => `
+          <div class="trait-chip">
+            <div class="tmark">✦</div>
+            <div>
+              <div class="tname">${t.name}</div>
+              <div class="tdesc">${t.desc}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  function transferTabHTML(p){
+    return `
+      <div class="transfer-block">
+        <div class="tt">Not Transfer Listed</div>
+        <div class="td">${p.first} ${p.last} is contracted to Heritage Lions for the remainder of Season One.</div>
+      </div>
+    `;
+  }
+
+  function tabContentHTML(p, tab){
+    if(tab === 'attributes') return attributesTabHTML(p);
+    if(tab === 'traits') return traitsTabHTML(p);
+    if(tab === 'transfer') return transferTabHTML(p);
+    return summaryTabHTML(p);
+  }
+
+  function tabbarHTML(tab){
+    const tabs = [
+      { key: 'summary', label: 'Summary' },
+      { key: 'attributes', label: 'Attributes' },
+      { key: 'traits', label: 'Traits' },
+      { key: 'transfer', label: 'Transfer' }
+    ];
+    return `
+      <div class="tabbar">
+        ${tabs.map(t => `
+          <button class="tab ${tab === t.key ? 'active' : ''}" data-tab="${t.key}">${t.label}</button>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  function renderCard(){
+    const p = lions[currentIndex];
+
+    document.getElementById('player-card').innerHTML = `
+      <div class="card-top">
+        <div class="portrait-col">
+          <div class="portrait">
+            <div class="rating-badge">
+              <div class="rn">${p.ovr}</div>
+              <div class="rp">${p.pos}</div>
+            </div>
+            <div class="initials">${initials(p)}</div>
+          </div>
+          <div class="portrait-meta">
+            <div class="pm-row"><span>Position</span><span>${p.pos}</span></div>
+            <div class="pm-row"><span>Stamina</span><span class="stars">${starString(p.stamina)}</span></div>
+            <div class="pm-row"><span>Skill Moves</span><span class="stars">${starString(p.skillMoves)}</span></div>
+          </div>
+        </div>
+        <div class="info-col">
+          <div class="name-block">
+            <div class="first">${p.first}</div>
+            <div class="last">${p.last.toUpperCase()}</div>
+          </div>
+          <div class="meta-line">
+            <span><b>${p.height}</b></span>
+            <span><b>${p.weight}</b></span>
+            <span>Age <b>${p.age}</b></span>
+            <span>Preferred Foot <b>${p.foot}</b></span>
+            <span>Heritage Lions · <b>Heritage F.L.</b></span>
+          </div>
+        </div>
+      </div>
+      ${tabbarHTML(currentTab)}
+      <div class="tab-content" id="tab-content"></div>
+    `;
+
+    document.getElementById('tab-content').innerHTML = tabContentHTML(p, currentTab);
+
+    document.querySelectorAll('.tabbar .tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentTab = btn.dataset.tab;
+        renderCard();
+      });
+    });
+
+    document.getElementById('counter').textContent = `${currentIndex + 1} / ${lions.length}`;
+    document.getElementById('prev-btn').disabled = currentIndex === 0;
+    document.getElementById('next-btn').disabled = currentIndex === lions.length - 1;
+
+    document.querySelectorAll('.roster-chip').forEach((chip, i) => {
+      chip.classList.toggle('active', i === currentIndex);
+    });
+  }
+
+  function renderRosterStrip(){
+    const strip = document.getElementById('roster-strip');
+    strip.innerHTML = lions.map((p, i) => `
+      <div class="roster-chip" data-index="${i}">
+        <span class="rc-num">${p.number}</span>
+        <span class="rc-name">${p.last}</span>
+      </div>
+    `).join('');
+
+    strip.querySelectorAll('.roster-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        currentIndex = parseInt(chip.dataset.index, 10);
+        currentTab = 'summary';
+        renderCard();
+      });
+    });
+  }
+
+  document.getElementById('prev-btn').addEventListener('click', () => {
+    if(currentIndex > 0){ currentIndex--; currentTab = 'summary'; renderCard(); }
+  });
+  document.getElementById('next-btn').addEventListener('click', () => {
+    if(currentIndex < lions.length - 1){ currentIndex++; currentTab = 'summary'; renderCard(); }
+  });
+
+  renderRosterStrip();
+  renderCard();
+</script>
+
+</body>
+</html>

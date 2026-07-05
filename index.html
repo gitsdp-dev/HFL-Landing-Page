@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Heritage Football League</title>
+<link rel="icon" type="icon/png" href="resized_favicon-removebg-preview.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,600;1,700&family=Source+Serif+4:ital,wght@0,400;0,500;0,600;1,500&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream: #f7f3ea;
+    --cream-dim: #efe9db;
+    --ink: #17181c;
+    --ink-soft: #2b2c31;
+    --navy: #1b2a4a;
+    --navy-deep: #101a30;
+    --gold: #a9822f;
+    --gold-soft: #c79f4f;
+    --line: rgba(23,24,28,0.14);
+    --line-light: rgba(247,243,234,0.18);
+    --paper-radius: 0px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  img{ max-width:100%; display:block; }
+
+  .eyebrow{
+    font-family: 'Jost', sans-serif;
+    font-size: 11.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+  }
+  .eyebrow.on-dark{ color: var(--gold-soft); }
+
+  h1,h2,h3,.serif-display{
+    font-family: 'Playfair Display', Georgia, serif;
+    margin: 0;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+  }
+
+  .wrap{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  a{ color: inherit; text-decoration: none; }
+
+  /* ---------- NAV ---------- */
+  header.site-nav{
+    position: sticky; top:0; z-index: 50;
+    background: var(--cream);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 18px 40px;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .brand{ display:flex; align-items:center; gap:12px; }
+  .crest{
+    width:38px; height:38px; border-radius:50%;
+    background: var(--navy);
+    display:flex; align-items:center; justify-content:center;
+    color: var(--gold-soft);
+    font-family:'Playfair Display', serif;
+    font-weight:700; font-size:14px;
+    border: 1px solid var(--gold);
+    flex-shrink:0;
+  }
+  .brand-text .name{
+    font-family:'Playfair Display', serif;
+    font-weight:700; font-size:16.5px; letter-spacing:0.02em;
+  }
+  .brand-text .sub{
+    font-family:'Jost', sans-serif;
+    font-size:10px; letter-spacing:0.14em; text-transform:uppercase;
+    color:#6b6b6b; margin-top:2px;
+  }
+  nav.main-links{
+    display:flex; align-items:center; gap:34px;
+    font-family:'Jost', sans-serif;
+    font-size:12.5px; letter-spacing:0.1em; text-transform:uppercase;
+    font-weight:500;
+  }
+  nav.main-links a{
+    position:relative; padding-bottom:6px; color: var(--ink-soft);
+    transition: color .2s ease;
+  }
+  nav.main-links a:hover{ color: var(--ink); }
+  nav.main-links a.active{ color: var(--ink); }
+  nav.main-links a.active::after{
+    content:''; position:absolute; left:0; right:0; bottom:-19px; height:2px;
+    background: var(--gold);
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height: 640px;
+    display:flex; align-items:center;
+    background:
+      linear-gradient(100deg, rgba(16,20,28,0.86) 10%, rgba(16,20,28,0.55) 55%, rgba(16,20,28,0.72) 100%),
+      url('https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?q=80&w=1800&auto=format&fit=crop') center/cover no-repeat;
+    color: #f4f1e9;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:'';
+    position:absolute; inset:0;
+    background: repeating-linear-gradient(0deg, rgba(0,0,0,0.05) 0px, rgba(0,0,0,0.05) 1px, transparent 1px, transparent 3px);
+    mix-blend-mode: overlay;
+    pointer-events:none;
+    opacity:.5;
+  }
+  .hero-inner{
+    position:relative; z-index:2;
+    width:100%;
+    display:grid; grid-template-columns: 1.5fr 0.7fr;
+    gap: 40px; align-items:center;
+    padding: 90px 0 70px;
+  }
+  .hero-copy .eyebrow{ margin-bottom: 22px; }
+  .hero h1{
+    font-size: clamp(42px, 5.4vw, 74px);
+    color: #fbf8f1;
+    font-weight: 800;
+  }
+  .hero p.lede{
+    font-family:'Source Serif 4', serif;
+    font-size: 17px;
+    line-height:1.65;
+    max-width: 520px;
+    color: rgba(247,243,234,0.82);
+    margin: 26px 0 34px;
+  }
+  .btn-row{ display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{
+    font-family:'Jost', sans-serif;
+    font-size:12.5px; letter-spacing:0.1em; text-transform:uppercase;
+    font-weight:600;
+    padding: 15px 26px;
+    border: 1px solid transparent;
+    cursor:pointer;
+    transition: all .2s ease;
+    display:inline-block;
+  }
+  .btn-solid-light{
+    background: #f4f1e9; color: #17181c;
+  }
+  .btn-solid-light:hover{ background:#fff; }
+  .btn-outline-light{
+    background: transparent; color:#f4f1e9; border-color: rgba(247,243,234,0.55);
+  }
+  .btn-outline-light:hover{ border-color:#f4f1e9; background: rgba(247,243,234,0.08); }
+  .btn-solid-dark{
+    background: var(--ink); color: var(--cream);
+  }
+  .btn-solid-dark:hover{ background:#000; }
+
+  .hero-crest-panel{
+    background: #f4f1e9;
+    padding: 26px 22px;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+  }
+  .hero-crest-panel .badge{
+    width: 100%;
+    aspect-ratio: 4/3.1;
+    background: linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 100%);
+    border: 3px solid var(--gold);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; gap:6px; padding: 14px;
+  }
+  .badge .ball{
+    font-size: 30px; line-height:1; color: var(--gold-soft);
+    margin-bottom: 2px;
+  }
+  .badge .b-name{
+    font-family:'Playfair Display', serif; font-weight:800; font-size:16px; color:#f4f1e9;
+    letter-spacing: 0.02em;
+  }
+  .badge .b-sub{
+    font-family:'Jost', sans-serif; font-size:9px; letter-spacing:0.16em;
+    color: var(--gold-soft); text-transform:uppercase;
+  }
+
+  /* ---------- STAT STRIP ---------- */
+  .stat-strip{
+    background: var(--cream);
+    border-bottom: 1px solid var(--line);
+  }
+  .stat-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; gap: 14px;
+    padding: 20px 0;
+    font-family:'Jost', sans-serif;
+    font-size:11.5px; letter-spacing:0.09em; text-transform:uppercase;
+    color: var(--ink-soft);
+  }
+  .stat-left{ display:flex; align-items:center; gap:28px; flex-wrap:wrap; }
+  .stat-left span{ display:flex; align-items:center; gap:8px; }
+  .stat-left .dot{ color: var(--gold); }
+  .stat-right{ font-weight:700; color: var(--ink); }
+
+  /* ---------- SECTIONS ---------- */
+  section{ padding: 90px 0; }
+  .section-head{
+    display:flex; align-items:flex-end; justify-content:space-between;
+    margin-bottom: 44px; flex-wrap:wrap; gap: 16px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 26px;
+  }
+  .section-head h2{ font-size: 40px; font-weight:700; margin-top:8px; }
+  .section-head .view-link{
+    font-family:'Jost', sans-serif; font-size:12px; letter-spacing:0.1em;
+    text-transform:uppercase; font-weight:600; color: var(--ink);
+    border-bottom: 1px solid var(--ink); padding-bottom:4px;
+  }
+
+  /* Clubs */
+  .club-grid{
+    display:grid; grid-template-columns: 1fr 1fr; gap: 26px;
+  }
+  .club-card{
+    background: #fdfcf8;
+    border: 1px solid var(--line);
+    padding: 30px 32px;
+    display:flex; align-items:center; gap: 22px;
+    transition: box-shadow .2s ease, transform .2s ease;
+  }
+  .club-card:hover{ box-shadow: 0 10px 26px rgba(23,24,28,0.08); transform: translateY(-2px); }
+  .club-mark{
+    width:66px; height:66px; border:1px solid var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Playfair Display', serif; font-weight:700; font-size:17px;
+    flex-shrink:0;
+  }
+  .club-info{ flex:1; }
+  .club-info .eyebrow{ color:#8b8b8b; font-size:10.5px; margin-bottom:6px; }
+  .club-info h3{ font-size:23px; font-weight:700; }
+  .club-info .meta{
+    font-family:'Jost', sans-serif; font-size:11px; letter-spacing:0.08em;
+    text-transform:uppercase; color:#8b8b8b; margin-top:8px;
+  }
+  .club-arrow{
+    font-size:20px; color: var(--gold); font-family:'Playfair Display', serif;
+  }
+
+  /* Squad Formations */
+  .squad-grid{
+    display:grid; grid-template-columns: 1fr 1fr; gap: 30px;
+  }
+  .squad-panel{
+    background: #fdfcf8;
+    border: 1px solid var(--line);
+    padding: 26px;
+  }
+  .squad-panel-head{
+    display:flex; align-items:center; gap: 14px;
+    margin-bottom: 22px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--line);
+  }
+  .squad-crest{
+    width:52px; height:52px; border-radius:50%;
+    background: var(--navy);
+    border: 2px solid var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Playfair Display', serif; font-weight:700; font-size:15px;
+    color: var(--gold-soft); flex-shrink:0;
+  }
+  .squad-panel-head .sname{
+    font-family:'Playfair Display', serif; font-weight:700; font-size:20px;
+  }
+  .squad-panel-head .sform{
+    font-family:'Jost', sans-serif; font-size:10.5px; letter-spacing:0.12em;
+    text-transform:uppercase; color:#8b8b8b; margin-top:4px;
+  }
+  .pitch{
+    position:relative;
+    aspect-ratio: 3 / 4;
+    background: repeating-linear-gradient(180deg, #2c5a35 0px, #2c5a35 11.11%, #29542f 11.11%, #29542f 22.22%);
+    border: 2px solid rgba(247,243,234,0.65);
+    padding: 26px 10px;
+    display:flex; flex-direction:column; justify-content: space-between;
+    overflow:hidden;
+  }
+  .pitch::before{
+    content:'';
+    position:absolute; left:50%; top:50%; width:92px; height:92px;
+    border: 1.5px solid rgba(247,243,234,0.55);
+    border-radius:50%;
+    transform: translate(-50%,-50%);
+    pointer-events:none;
+  }
+  .pitch::after{
+    content:'';
+    position:absolute; left:50%; bottom:-1px; width:56%; height:15%;
+    border: 1.5px solid rgba(247,243,234,0.55);
+    border-bottom:none;
+    transform: translateX(-50%);
+    pointer-events:none;
+  }
+  .pitch .halfway{
+    position:absolute; left:0; right:0; top:50%;
+    border-top: 1.5px solid rgba(247,243,234,0.55);
+  }
+  .formation-row{
+    position:relative; z-index:2;
+    display:flex; justify-content:space-evenly;
+  }
+  .p-token{
+    display:flex; flex-direction:column; align-items:center; gap:7px;
+  }
+  .p-num{
+    width:34px; height:34px; border-radius:50%;
+    background: #f7f3ea; border: 2px solid var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Playfair Display', serif; font-weight:700; font-size:13.5px;
+    color: var(--ink);
+  }
+  .p-label{
+    font-family:'Jost', sans-serif; font-size:10px; letter-spacing:0.03em;
+    color:#f7f3ea; text-shadow: 0 1px 4px rgba(0,0,0,0.65);
+    text-align:center; white-space:nowrap;
+  }
+
+  /* Players */
+  .players-tabs{
+    display:flex; gap: 8px; margin-bottom: 34px;
+  }
+  .tab-btn{
+    font-family:'Jost', sans-serif;
+    font-size: 11.5px; letter-spacing:0.1em; text-transform:uppercase;
+    font-weight:600;
+    padding: 10px 20px;
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+    cursor:pointer;
+    transition: all .2s ease;
+  }
+  .tab-btn:hover{ border-color: var(--ink); color: var(--ink); }
+  .tab-btn.active{
+    background: var(--ink); color: var(--cream); border-color: var(--ink);
+  }
+  .table-wrap{
+    overflow-x:auto;
+    border: 1px solid var(--line);
+    background: #fdfcf8;
+  }
+  table.roster{
+    width:100%;
+    border-collapse: collapse;
+    min-width: 720px;
+  }
+  table.roster thead th{
+    font-family:'Jost', sans-serif;
+    font-size: 10.5px; letter-spacing:0.1em; text-transform:uppercase;
+    font-weight:600; color: #8b8b8b;
+    text-align:left;
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--ink);
+    white-space: nowrap;
+  }
+  table.roster thead th.num{ text-align:center; }
+  table.roster tbody td{
+    padding: 15px 18px;
+    border-bottom: 1px solid var(--line);
+    font-size: 15px;
+    vertical-align: middle;
+  }
+  table.roster tbody td.num{ text-align:center; font-family:'Jost', sans-serif; font-size:13.5px; }
+  table.roster tbody tr:last-child td{ border-bottom:none; }
+  table.roster tbody tr{ transition: background .15s ease; }
+  table.roster tbody tr:hover{ background: rgba(169,130,47,0.06); }
+  .player-name{ display:flex; align-items:center; gap:12px; }
+  .player-name .no{
+    font-family:'Playfair Display', serif; font-weight:700; font-size:13px;
+    color: var(--gold); width:22px; flex-shrink:0;
+  }
+  .player-name .n{ font-weight:600; }
+  .pos-tag{
+    font-family:'Jost', sans-serif; font-size:10px; letter-spacing:0.08em;
+    text-transform:uppercase; font-weight:600;
+    padding: 3px 9px;
+    border: 1px solid var(--ink-soft);
+    color: var(--ink-soft);
+    display:inline-block;
+  }
+  .club-tag{
+    font-family:'Jost', sans-serif; font-size:11px; letter-spacing:0.06em;
+    color:#8b8b8b;
+  }
+
+  /* Fixture (dark) */
+  .fixture-section{
+    background: var(--ink); color: var(--cream);
+    padding: 100px 0;
+  }
+  .fixture-grid{
+    display:grid; grid-template-columns: 1fr 0.9fr; gap: 60px; align-items:center;
+  }
+  .fixture-copy .eyebrow{ margin-bottom:18px; }
+  .fixture-meta{
+    font-family:'Jost', sans-serif; font-size:12px; letter-spacing:0.1em;
+    text-transform:uppercase; color: rgba(247,243,234,0.6); margin-bottom: 26px;
+  }
+  .matchup{
+    display:flex; align-items:baseline; gap:22px; flex-wrap:wrap; margin-bottom: 34px;
+  }
+  .matchup .team{ }
+  .matchup .team h3{ font-size: 30px; font-weight:700; color:#fbf8f1; }
+  .matchup .team .tag{
+    font-family:'Jost', sans-serif; font-size:10px; letter-spacing:0.14em;
+    color: rgba(247,243,234,0.55); margin-top:6px; text-transform:uppercase;
+  }
+  .matchup .vs{
+    font-family:'Playfair Display', serif; font-style:italic; font-weight:700;
+    font-size:26px; color: var(--gold-soft);
+  }
+  .ground-photo{
+    position:relative;
+    aspect-ratio: 16/10.5;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.75) 100%),
+      url('https://images.unsplash.com/photo-1522778119026-d647f0596c20?q=80&w=1400&auto=format&fit=crop') center/cover no-repeat;
+    border: 1px solid rgba(247,243,234,0.15);
+  }
+  .ground-photo .cap{
+    position:absolute; left:22px; bottom:20px;
+  }
+  .ground-photo .cap .eyebrow{ color: var(--gold-soft); margin-bottom:6px; }
+  .ground-photo .cap h4{
+    font-family:'Playfair Display', serif; font-size:24px; font-weight:800; color:#fbf8f1;
+  }
+
+  /* Motto */
+  .motto-section{ text-align:center; padding: 110px 0; }
+  .motto-section .eyebrow{ display:block; margin-bottom: 22px; }
+  .motto-section blockquote{
+    font-family:'Playfair Display', serif;
+    font-weight:700; font-size: clamp(30px, 4.4vw, 52px);
+    margin:0; line-height:1.2;
+  }
+  .motto-section blockquote em{
+    color: var(--navy); font-style: italic; font-weight:700;
+  }
+  .motto-rule{
+    width: 70px; height:1px; background: var(--ink);
+    margin: 34px auto 22px;
+  }
+  .motto-section .attrib{
+    font-family:'Jost', sans-serif; font-size:11.5px; letter-spacing:0.14em;
+    text-transform:uppercase; color:#7a7a7a;
+  }
+
+  /* Footer */
+  footer{
+    background: var(--navy-deep); color: rgba(247,243,234,0.85);
+    padding: 70px 0 0;
+  }
+  .footer-grid{
+    display:grid; grid-template-columns: 1.4fr 1fr 0.7fr; gap: 50px;
+    padding-bottom: 46px; border-bottom: 1px solid rgba(247,243,234,0.12);
+  }
+  .footer-brand{ display:flex; gap:14px; align-items:flex-start; }
+  .footer-brand .crest{
+    background:#f4f1e9; border:none;
+  }
+  .footer-brand .crest span{ color: var(--navy); }
+  .footer-brand .name{
+    font-family:'Playfair Display', serif; font-weight:700; font-size:17px; color:#fbf8f1;
+  }
+  .footer-brand .sub{
+    font-family:'Jost', sans-serif; font-size:10px; letter-spacing:0.14em;
+    text-transform:uppercase; color: var(--gold-soft); margin-top:6px;
+  }
+  .footer-col .eyebrow{ margin-bottom:14px; display:block; color: var(--gold-soft); }
+  .footer-col p{ font-size:14.5px; line-height:1.6; margin:0; color: rgba(247,243,234,0.7); }
+  .footer-col .big-num{
+    font-family:'Playfair Display', serif; font-weight:800; font-size:34px; color:#fbf8f1;
+  }
+  .footer-col .big-sub{ font-size:13px; color: rgba(247,243,234,0.6); margin-top:4px; }
+  .footer-bottom{
+    display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; gap:10px;
+    padding: 22px 0;
+    font-family:'Jost', sans-serif; font-size:11px; letter-spacing:0.06em;
+    color: rgba(247,243,234,0.45);
+  }
+
+  /* Mobile nav toggle */
+  /* Hamburger button — hidden on desktop */
+  .nav-toggle{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 34px; height: 34px;
+    background: none; border: none; cursor: pointer;
+    padding: 0;
+  }
+  .nav-toggle span{
+    display: block;
+    height: 2px; width: 100%;
+    background: var(--ink);
+    transition: transform .25s ease, opacity .25s ease;
+  }
+  .nav-toggle.open span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2){ opacity: 0; }
+  .nav-toggle.open span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+
+  /* Mobile dropdown panel */
+  .mobile-menu{
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    background: var(--cream);
+    border-bottom: 1px solid var(--line);
+    box-shadow: 0 16px 30px rgba(23,24,28,0.12);
+    z-index: 49;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .3s ease;
+  }
+  .mobile-menu.open{
+    display: flex;
+    max-height: 500px; /* enough room for all links */
+  }
+  .mobile-menu a{
+    font-family: 'Jost', sans-serif;
+    font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
+    font-weight: 500; color: var(--ink-soft);
+    padding: 16px 40px;
+    border-bottom: 1px solid var(--line);
+  }
+  .mobile-menu a:last-child{ border-bottom: none; }
+  .mobile-menu a:hover,
+  .mobile-menu a.active{ color: var(--ink); background: var(--cream-dim); }
+
+  @media (max-width: 900px){
+    nav.main-links{ display: none; }
+    .nav-toggle{ display: flex; }
+    header.site-nav{ position: relative; } /* anchors the dropdown */
+  }
+
+  @media (max-width: 900px){
+    .wrap{ padding: 0 22px; }
+    .nav-inner{ padding: 16px 22px; }
+    nav.main-links{ display:none; }
+    .hero-inner{ grid-template-columns: 1fr; padding: 60px 0 44px; }
+    .hero-crest-panel{ max-width: 260px; }
+    .club-grid{ grid-template-columns: 1fr; }
+    .squad-grid{ grid-template-columns: 1fr; }
+    .fixture-grid{ grid-template-columns: 1fr; gap: 36px; }
+    .footer-grid{ grid-template-columns: 1fr; gap: 34px; }
+    .stat-inner{ justify-content:flex-start; }
+    .stat-right{ width:100%; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#home">Home</a>
+    <a href="#clubs">Teams</a>
+    <a href="#players">Players</a>
+    <a href="lions_stats.html">HL Player Stats</a>
+    <a href="hfc_stats.html">HFC Player Stats</a>
+    <a href="#fixture">Matches</a>
+    <a href="#standings">Standings</a>
+  </div>
+  <div class="nav-inner">
+    <div class="brand">
+      <div class="crest"><img src="favicon-removebg-preview.png" alt="Heritage F.L. Logo"></div>
+      <div class="brand-text">
+        <div class="name">HERITAGE F.L.</div>
+        <div class="sub">Est. 2026 · Season 1</div>
+      </div>
+    </div>
+    <nav class="main-links">
+      <a href="#home" class="active">Home</a>
+      <a href="#clubs">Teams</a>
+      <a href="#players">Players</a>
+      <a href="lions_stats.html">HL Player Stats</a>
+      <a href="hfc_stats.html">HFC Player Stats</a>
+      <a href="#fixture">Matches</a>
+      <a href="#standings">Standings</a>
+    </nav>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<section class="hero" id="home">
+  <div class="wrap">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <span class="eyebrow on-dark">Unity · Tradition · Talent · Excellence</span>
+        <h1>The Heritage<br>Football League</h1>
+        <p class="lede">An almanac of the beautiful game. Two clubs. Nine players a side. One hallowed ground. This is Season One — the beginning of a tradition.</p>
+        <div class="btn-row">
+          <a href="#fixture" class="btn btn-solid-light">See Fixtures</a>
+          <a href="#clubs" class="btn btn-outline-light">Meet the Clubs</a>
+        </div>
+      </div>
+      <div class="hero-crest-panel">
+        <div class="badge">
+          <img src="favicon-removebg-preview.png" alt="Heritage F.L. Logo">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stat-strip">
+  <div class="wrap">
+    <div class="stat-inner">
+      <div class="stat-left">
+        <span><span class="dot">◆</span> Vol. I</span>
+        <span>Founded 2026</span>
+        <span>The Cool Ground</span>
+        <span>2 Clubs</span>
+        <span>18 Players</span>
+      </div>
+      <div class="stat-right">Season 01 · In Progress</div>
+    </div>
+  </div>
+</div>
+
+<section id="clubs">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Chapter I</span>
+        <h2>The Clubs</h2>
+      </div>
+      <a href="#squads" class="view-link">View Squads →</a>
+    </div>
+    <div class="club-grid">
+      <div class="club-card">
+        <div class="club-mark"><img src="h_lions-removebg-preview.png"></div>
+        <div class="club-info">
+          <span class="eyebrow">Club</span>
+          <h3>Heritage Lions</h3>
+          <div class="meta">Est. 2026 · 9 Players</div>
+        </div>
+      </div>
+      <div class="club-card">
+        <div class="club-mark"><img src="h_fc-removebg-preview.png"></div>
+        <div class="club-info">
+          <span class="eyebrow">Club</span>
+          <h3>Heritage FC</h3>
+          <div class="meta">Est. 2026 · 9 Players</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="squads">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Chapter II</span>
+        <h2>Squad Formations</h2>
+      </div>
+    </div>
+    <div class="squad-grid" id="squad-grid">
+      <!-- panels injected by JS -->
+    </div>
+  </div>
+</section>
+
+<section id="players">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Chapter III</span>
+        <h2>The Players</h2>
+      </div>
+    </div>
+
+    <div class="players-tabs">
+      <button class="tab-btn active" data-club="all">All Players</button>
+      <button class="tab-btn" data-club="lions">Heritage Lions</button>
+      <button class="tab-btn" data-club="hfc">Heritage FC</button>
+    </div>
+
+    <div class="table-wrap">
+      <table class="roster">
+        <thead>
+          <tr>
+            <th>Player</th>
+            <th>Club</th>
+            <th>Position</th>
+            <th class="num">Apps</th>
+            <th class="num">Goals</th>
+            <th class="num">Assists</th>
+            <th class="num">Yellow</th>
+            <th class="num">Red</th>
+          </tr>
+        </thead>
+        <tbody id="roster-body">
+          <!-- rows injected by JS -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="fixture-section" id="fixture">
+  <div class="wrap">
+    <div class="fixture-grid">
+      <div class="fixture-copy">
+        <span class="eyebrow on-dark">Next Fixture</span>
+        <div class="fixture-meta">Matchday 3 · Tuesday, July 21 · 01:04 PM</div>
+        <div class="matchup">
+          <div class="team">
+            <h3>Heritage Lions</h3>
+            <div class="tag">Home</div>
+          </div>
+          <div class="team">
+            <h3>Heritage FC</h3>
+            <div class="tag">Away</div>
+          </div>
+        </div>
+      </div>
+      <div class="ground-photo">
+        <div class="cap">
+          <span class="eyebrow on-dark">Ground:</span>
+          <h4>The Cool Ground</h4>
+          <p class="eyebrow on-dark">Venue: Bishnupur Heritage School, Chougan, Bishnupur, Bankura, WB</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="motto-section" id="standings">
+  <div class="wrap">
+    <span class="eyebrow">The Motto</span>
+    <blockquote>"Unity. Tradition. Talent. Excellence."</blockquote>
+    <div class="motto-rule"></div>
+    <div class="attrib">— Heritage F.L., 2026</div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="crest"><img src="favicon-removebg-preview.png"></div>
+        <div>
+          <div class="name">HERITAGE F.L.</div>
+          <div class="sub">Unity · Tradition · Talent · Excellence</div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <span class="eyebrow on-dark">The League</span>
+        <p>Founded 2026.<br>Two clubs.<br>One ground.<br>Every match played at The Cool Ground.</p>
+      </div>
+      <div class="footer-col">
+        <span class="eyebrow on-dark">Season</span>
+        <div class="big-num">01</div>
+        <div class="big-sub">The Inaugural Campaign</div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 Heritage Football League. Made By © 2026 CodeCrafters. All rights reserved.</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ---------- Player roster ----------
+  const roster = [
+    { number: 1,  name: "Devdas Bhattacharya",   club: "lions", clubName: "Heritage Lions", pos: "GK", apps: 1, goals: 0, assists: 0, yellow: 0, red: 0 },
+    { number: 2,  name: "Umesh Chakraborty",       club: "lions", clubName: "Heritage Lions", pos: "MF", apps: 0, goals: 0, assists: 0, yellow: 0, red: 0 },
+    { number: 3,  name: "Sanket Dey",   club: "lions", clubName: "Heritage Lions", pos: "DF", apps: 2, goals: 0, assists: 0, yellow: 3, red: 0 },
+    { number: 4,  name: "Abhra Manna",    club: "lions", clubName: "Heritage Lions", pos: "DF", apps: 2, goals: 0, assists: 0, yellow: 0, red: 0 },
+    { number: 5,  name: "Sudipto Kr Koley",     club: "lions", clubName: "Heritage Lions", pos: "DF", apps: 2, goals: 0, assists: 0, yellow: 1, red: 0 },
+    { number: 6,  name: "Satyam Mallik",   club: "lions", clubName: "Heritage Lions", pos: "MF", apps: 2, goals: 0, assists: 0, yellow: 0, red: 0 },
+    { number: 20,  name: "Souradipta Patra", club: "lions", clubName: "Heritage Lions", pos: "FW", apps: 2, goals: 1, assists: 1, yellow: 0, red: 0 },
+    { number: 18,  name: "Archisman De",     club: "lions", clubName: "Heritage Lions", pos: "FW", apps: 2, goals: 3, assists: 0, yellow: 0, red: 0 },
+    { number: 75, name: "Sayan Kr Mandal",    club: "lions", clubName: "Heritage Lions", pos: "FW", apps: 2, goals: 0, assists: 1, yellow: 0, red: 0 },
+
+    { number: 1,  name: "Anindya Banerjee",   club: "hfc", clubName: "Heritage FC", pos: "GK", apps: 2, goals: 2, assists: 0, yellow: 0, red: 0 },
+    { number: 2,  name: "Ayush Goswami",       club: "hfc", clubName: "Heritage FC", pos: "DF", apps: 2, goals: 0, assists: 0, yellow: 0, red: 0 },
+    { number: 3,  name: "Abhinav Biswas",      club: "hfc", clubName: "Heritage FC", pos: "DF", apps: 2, goals: 0, assists: 0, yellow: 0, red: 0 },
+    { number: 4,  name: "Devmalya Santra",     club: "hfc", clubName: "Heritage FC", pos: "DF", apps: 2, goals: 0, assists: 0, yellow: 0, red: 0 },
+    { number: 5,  name: "Rishav Santra",     club: "hfc", clubName: "Heritage FC", pos: "DF", apps: 2, goals: 0, assists: 0, yellow: 0, red: 0 },
+    { number: 6,  name: "Alekhya Laha",     club: "hfc", clubName: "Heritage FC", pos: "DF", apps: 2, goals: 0, assists: 0, yellow: 0, red: 0 },
+    { number: 8,  name: "Abin Roy",     club: "hfc", clubName: "Heritage FC", pos: "MF", apps: 2, goals: 0, assists: 0, yellow: 0, red: 0 },
+    { number: 9,  name: "Nirman Mandal",    club: "hfc", clubName: "Heritage FC", pos: "FW", apps: 2, goals: 0, assists: 1, yellow: 0, red: 0 },
+    { number: 10, name: "Rohan Mandal",   club: "hfc", clubName: "Heritage FC", pos: "FW", apps: 2, goals: 1, assists: 0, yellow: 0, red: 0 }
+  ];
+
+  const rosterBody = document.getElementById('roster-body');
+
+  function renderRoster(filter){
+    rosterBody.innerHTML = '';
+    roster
+      .filter(p => filter === 'all' || p.club === filter)
+      .forEach((p, i) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>
+            <div class="player-name">
+              <span class="no">${String(p.number).padStart(2, '0')}</span>
+              <span class="n">${p.name}</span>
+            </div>
+          </td>
+          <td><span class="club-tag">${p.clubName}</span></td>
+          <td><span class="pos-tag">${p.pos}</span></td>
+          <td class="num">${p.apps}</td>
+          <td class="num">${p.goals}</td>
+          <td class="num">${p.assists}</td>
+          <td class="num">${p.yellow}</td>
+          <td class="num">${p.red}</td>
+        `;
+        rosterBody.appendChild(tr);
+      });
+  }
+
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderRoster(btn.dataset.club);
+    });
+  });
+
+  renderRoster('all');
+
+  // ---------- Squad formations ----------
+  const clubMeta = {
+  lions: { 
+    crest: '<img src="h_lions-removebg-preview.png" alt="Heritage Lions Logo">', 
+    name: "Heritage Lions" 
+  },
+  hfc: { 
+    crest: '<img src="h_fc-removebg-preview.png" alt="Heritage FC Logo">', 
+    name: "Heritage FC" 
+  }
+};
+
+
+  function tokenHTML(p){
+    return `
+      <div class="p-token">
+        <div class="p-num">${p.number}</div>
+        <div class="p-label">${p.name.split(' ').pop()}</div>
+      </div>
+    `;
+  }
+
+  function renderSquadPanel(clubKey){
+    const meta = clubMeta[clubKey];
+    const players = roster.filter(p => p.club === clubKey);
+    const fw = players.filter(p => p.pos === 'FW');
+    const mf = players.filter(p => p.pos === 'MF');
+    const df = players.filter(p => p.pos === 'DF');
+    const gk = players.filter(p => p.pos === 'GK');
+
+    return `
+      <div class="squad-panel">
+        <div class="squad-panel-head">
+          <div class="squad-crest">${meta.crest}</div>
+          <div>
+            <div class="sname">${meta.name}</div>
+          </div>
+        </div>
+        <div class="pitch">
+          <div class="halfway"></div>
+          <div class="formation-row">${fw.map(tokenHTML).join('')}</div>
+          <div class="formation-row">${mf.map(tokenHTML).join('')}</div>
+          <div class="formation-row">${df.map(tokenHTML).join('')}</div>
+          <div class="formation-row">${gk.map(tokenHTML).join('')}</div>
+        </div>
+      </div>
+    `;
+  }
+
+  document.getElementById('squad-grid').innerHTML =
+    renderSquadPanel('lions') + renderSquadPanel('hfc');
+
+  // Highlight active nav link based on scroll position
+  const sections = ['home','clubs','squads','players','fixture','standings'].map(id => document.getElementById(id));
+  const navLinks = document.querySelectorAll('nav.main-links a');
+
+  function setActiveLink(){
+    let currentId = 'home';
+    const scrollPos = window.scrollY + 120;
+    sections.forEach(sec => {
+      if(sec && sec.offsetTop <= scrollPos){
+        currentId = sec.id;
+      }
+    });
+    navLinks.forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === '#' + currentId);
+    });
+  }
+
+  window.addEventListener('scroll', setActiveLink);
+  document.addEventListener('DOMContentLoaded', setActiveLink);
+
+  // Smooth-scroll for internal nav links
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      const target = document.querySelector(link.getAttribute('href'));
+      if(target){
+        e.preventDefault();
+        window.scrollTo({ top: target.offsetTop - 70, behavior: 'smooth' });
+      }
+    });
+  });
+  const navToggle = document.getElementById('nav-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  navToggle.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    navToggle.classList.toggle('open', isOpen);
+    navToggle.setAttribute('aria-expanded', isOpen);
+  });
+
+  // Close the menu after tapping a link
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      navToggle.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>
+
+</body>
+</html>
