@@ -1,0 +1,22 @@
+{
+"name": "Heritage Football League",
+"short_name": "HFL",
+"description": "Official website of the Heritage Football League organized by Bishnupur Heritage School.",
+"start_url": "/",
+"display": "standalone",
+"background_color": "#ffffff",
+"theme_color": "#006633",
+"orientation": "portrait-primary",
+"icons": [
+{
+"src": "/icons/favicon-removebg-preview.png",
+"sizes": "192x192",
+"type": "image/png"
+},
+{
+"src": "/icons/favicon-removebg-preview.png",
+"sizes": "512x512",
+"type": "image/png"
+}
+]
+}
