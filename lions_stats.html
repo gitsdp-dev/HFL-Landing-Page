@@ -235,7 +235,7 @@
   // ---------------------------------------------------------------
   const lions = [
     {
-      number: 1, first: "Devdas", last: "Bhattacharya", pos: "GK", age: 14, foot: "Right",
+      number: 1, first: "Devdas", last: "Bhattacharya", pos: "GK, CM, CDM", height: "Undefined", weight:"Undefined", age: 14, foot: "Right",
       stamina: 4, skillMoves: 1, ovr: 114, type: "gk",
       categories: {
         Diving:      { total: 103, sub: { "Reflex Diving": 106, "Reach": 112 } },
@@ -253,7 +253,7 @@
       ]
     },
     {
-      number: 2, first: "Sudipto", last: "Kr Koley", pos: "CB, RB", age: 14, foot: "Right",
+      number: 2, first: "Sudipto Kr", last: "Koley", pos: "CB, RB", height:"Undefined", weight:"Undefined", age: 14, foot: "Right",
       stamina: 5, skillMoves: 2, ovr: 119, type: "Defensive",
       categories: {
         Pace:      { total: 102, sub: { "Acceleration": 80, "Sprint Speed": 106 } },
@@ -269,7 +269,7 @@
       ]
     },
     {
-      number: 3, first: "Sanket", last: "Dey", pos: "CB, CDM", age: 14, foot: "Left",
+      number: 3, first: "Sanket", last: "Dey", pos: "CB, CDM",height:'Undefined', weight:'Undefined', age: 14, foot: "Left",
       stamina: 5, skillMoves: 3, ovr: 118, type: "Defensive",
       categories: {
         Pace:      { total: 104, sub: { "Acceleration": 90, "Sprint Speed": 108 } },
@@ -287,50 +287,51 @@
       ]
     },
     {
-      number: 4, first: "Henry", last: "Blackwood", pos: "RB",
-      height: "180cm", weight: "76kg", age: 14, foot: "Right",
-      stamina: 5, skillMoves: 3, ovr: 77, type: "outfield",
+      number: 4, first: "Satyam", last: "Mallik", pos: "CM, CDM, CAM",
+      height: "Undefined", weight: "Undefined", age: 14, foot: "Right",
+      stamina: 5, skillMoves: 3, ovr: 120, type: "Defensive Midfielder",
       categories: {
-        Pace:      { total: 86, sub: { "Acceleration": 87, "Sprint Speed": 85 } },
-        Shooting:  { total: 45, sub: { "Finishing": 40, "Long Shot": 44, "Shot Power": 58, "Positioning": 42, "Volleys": 35, "Penalties": 46 } },
-        Passing:   { total: 72, sub: { "Short Passing": 76, "Long Passing": 68, "Vision": 66, "Crossing": 74, "Curve": 60, "Free Kick": 44 } },
-        Dribbling: { total: 72, sub: { "Dribbling": 74, "Ball Control": 73, "Agility": 76, "Reactions": 70 } },
-        Defending: { total: 79, sub: { "Marking": 80, "Standing Tackle": 82, "Sliding Tackle": 78, "Awareness": 76 } },
-        Physical:  { total: 76, sub: { "Strength": 74, "Aggression": 78, "Jumping": 75 } }
+        Pace:      { total: 102, sub: { "Acceleration": 90, "Sprint Speed": 103 } },
+        Shooting:  { total: 119, sub: { "Finishing": 106, "Long Shot": 117, "Shot Power": 120, "Positioning": 106, "Volleys": 110, "Penalties": 109 } },
+        Passing:   { total: 120, sub: { "Short Passing": 118, "Long Passing": 126, "Vision": 117, "Crossing": 120, "Curve": 115, "Free Kick": 135 } },
+        Dribbling: { total: 103, sub: { "Dribbling": 101, "Ball Control": 119, "Agility": 110, "Reactions": 116 } },
+        Defending: { total: 120, sub: { "Marking": 110, "Standing Tackle": 119, "Sliding Tackle": 107, "Awareness": 118 } },
+        Physical:  { total: 118, sub: { "Strength": 137, "Aggression": 126, "Jumping": 118 } }
       },
       traits: [
-        { name: "Overlapping Run", desc: "Times forward runs to stretch the opposition wide." },
-        { name: "Crosser", desc: "Whips in dangerous deliveries at pace." },
-        { name: "Recovery Pace", desc: "Tracks back quickly to cover after joining attacks." }
+        { name: "All-Round Player", desc: "Can Adopt playing styles of different positions for assisting the players playing in that position." },
+        { name: "Move Predictor", desc: "Can predict the next move of attackers and midfielders (either it is for dribbling or for passing)." },
+        { name: "Box-To-Box Player", desc: "Assists in attack from defensive mid and majorly plays defensively, tackling pace blasting attackers calmly." },
+        { name: "Backbone of The Team", desc: "The player is the backbone of the team, he is the one who can change the game with his defensive abilities and ball possession and can assist the team in any circumstances (especially helpful during comebacks)." }
       ]
     },
     {
-      number: 5, first: "Percy", last: "Duncombe", pos: "LB",
-      height: "179cm", weight: "74kg", age: 25, foot: "Left",
-      stamina: 5, skillMoves: 3, ovr: 76, type: "outfield",
+      number: 5, first: "Abhra", last: "Manna", pos: "CB",
+      height: "Undefined", weight: "Undefined", age: 14, foot: "Right",
+      stamina: 5, skillMoves: 1, ovr: 106, type: "Defensive",
       categories: {
-        Pace:      { total: 84, sub: { "Acceleration": 85, "Sprint Speed": 83 } },
-        Shooting:  { total: 40, sub: { "Finishing": 36, "Long Shot": 38, "Shot Power": 54, "Positioning": 37, "Volleys": 32, "Penalties": 40 } },
-        Passing:   { total: 71, sub: { "Short Passing": 75, "Long Passing": 66, "Vision": 64, "Crossing": 76, "Curve": 58, "Free Kick": 42 } },
-        Dribbling: { total: 73, sub: { "Dribbling": 75, "Ball Control": 74, "Agility": 77, "Reactions": 69 } },
-        Defending: { total: 77, sub: { "Marking": 78, "Standing Tackle": 80, "Sliding Tackle": 76, "Awareness": 74 } },
-        Physical:  { total: 73, sub: { "Strength": 70, "Aggression": 75, "Jumping": 72 } }
+        Pace:      { total: 90, sub: { "Acceleration": 85, "Sprint Speed": 93 } },
+        Shooting:  { total: 101, sub: { "Finishing": 80, "Long Shot": 82, "Shot Power": 96, "Positioning": 104, "Volleys": 80, "Penalties": 104 } },
+        Passing:   { total: 106, sub: { "Short Passing": 113, "Long Passing": 103, "Vision": 104, "Crossing": 76, "Curve": 58, "Free Kick": 42 } },
+        Dribbling: { total: 81, sub: { "Dribbling": 75, "Ball Control": 106, "Agility": 83, "Reactions": 94 } },
+        Defending: { total: 110, sub: { "Marking": 114, "Standing Tackle": 97, "Sliding Tackle": 76, "Awareness": 101 } },
+        Physical:  { total: 117, sub: { "Strength": 105, "Aggression": 80, "Jumping": 100 } }
       },
       traits: [
-        { name: "Attacking Full-Back", desc: "Joins the front line as an auxiliary winger." },
-        { name: "Whipped Cross", desc: "Bends deliveries around defenders into the box." },
-        { name: "Two-Footed", desc: "Equally comfortable striking the ball with either foot." }
+        { name: "Qutab Minar Advantages", desc: "Excels in defensive parameters more than his stats sometimes due to his insane height." },
+        { name: "Blocker", desc:"Blocks shots due to height advantage from major attackers. Can Clear ball efficiently to players directly." },
+        { name: "Heading Threat", desc:"Due to height advantage, can block vision of players for header goals of corners." }
       ]
     },
     {
-      number: 6, first: "William", last: "Ashcombe", pos: "CM",
-      height: "181cm", weight: "75kg", age: 27, foot: "Right",
-      stamina: 5, skillMoves: 4, ovr: 80, type: "outfield",
+      number: 6, first: "Umesh", last: "Chakraborty", pos: "CM, RW",
+      height: "Undefined(Known to be the Tallest)", weight: "Undefined", age: 14, foot: "Right",
+      stamina: 5, skillMoves: 3, ovr: 116, type: "Attacking and Defensive Midfielder",
       categories: {
-        Pace:      { total: 72, sub: { "Acceleration": 74, "Sprint Speed": 70 } },
-        Shooting:  { total: 68, sub: { "Finishing": 60, "Long Shot": 66, "Shot Power": 72, "Positioning": 64, "Volleys": 55, "Penalties": 60 } },
-        Passing:   { total: 82, sub: { "Short Passing": 86, "Long Passing": 80, "Vision": 84, "Crossing": 70, "Curve": 68, "Free Kick": 62 } },
-        Dribbling: { total: 78, sub: { "Dribbling": 80, "Ball Control": 82, "Agility": 76, "Reactions": 74 } },
+        Pace:      { total: 119, sub: { "Acceleration": 117, "Sprint Speed": 129 } },
+        Shooting:  { total: 116, sub: { "Finishing": 110, "Long Shot": 125, "Shot Power": 136, "Positioning": 108, "Volleys": 115, "Penalties": 100 } },
+        Passing:   { total: 110, sub: { "Short Passing": 114, "Long Passing": 106, "Vision": 103, "Crossing": 97, "Curve": 100, "Free Kick": 95 } },
+        Dribbling: { total: , sub: { "Dribbling": 80, "Ball Control": 82, "Agility": 76, "Reactions": 74 } },
         Defending: { total: 60, sub: { "Marking": 58, "Standing Tackle": 62, "Sliding Tackle": 55, "Awareness": 64 } },
         Physical:  { total: 74, sub: { "Strength": 72, "Aggression": 70, "Jumping": 68 } }
       },
