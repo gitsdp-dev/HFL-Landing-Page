@@ -128,20 +128,6 @@
   .summary-stat .label{ font-family:'Jost', sans-serif; font-size:11.5px; letter-spacing:0.08em; text-transform:uppercase; color: var(--ink-soft); }
   .summary-stat .val{ font-family:'Playfair Display', serif; font-weight:800; font-size:22px; }
 
-  /* Attributes (detailed) view */
-  .attr-grid{ display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 26px 30px; }
-  .attr-cat-head{
-    display:flex; align-items:center; justify-content:space-between;
-    padding-bottom: 8px; margin-bottom: 10px; border-bottom: 1px solid var(--ink);
-  }
-  .attr-cat-head .cname{ font-family:'Jost', sans-serif; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; font-weight:600; color: var(--ink); }
-  .attr-cat-head .ctotal{ font-family:'Playfair Display', serif; font-weight:800; font-size:18px; }
-  .attr-row{
-    display:flex; align-items:center; justify-content:space-between;
-    padding: 5px 0; font-family:'Source Serif 4', serif; font-size:14px; color: var(--ink-soft);
-  }
-  .attr-row .aval{ font-family:'Jost', sans-serif; font-weight:600; font-size:13px; }
-
   /* Traits view */
   .traits-intro{
     font-family:'Jost', sans-serif; font-size:11.5px; letter-spacing:0.08em;
@@ -197,7 +183,6 @@
     .card-top{ grid-template-columns: 1fr; }
     .portrait-col{ border-right:none; border-bottom:1px solid var(--line); }
     .summary-grid{ grid-template-columns: repeat(2, 1fr); }
-    .attr-grid{ grid-template-columns: 1fr; }
     .traits-grid{ grid-template-columns: 1fr; }
   }
 </style>
@@ -226,9 +211,8 @@
   // ---------------------------------------------------------------
   // Heritage Lions squad data.
   //
-  // Every player carries a `categories` breakdown (used by both the
-  // Summary tab — as headline totals — and the Attributes tab — as
-  // the full sub-stat view), plus a `traits` list for the Traits tab.
+  // Every player carries a `categories` breakdown, used by the
+  // Summary tab to show headline totals, plus a `traits` list for the Traits tab.
   //
   //  - GK  categories: Diving / Positioning / Handling / Reflexes / Kicking / Physical
   //  - Outfield (DF/MF/FW) categories: Pace / Shooting / Passing / Dribbling / Defending / Physical
@@ -236,14 +220,14 @@
   const lions = [
     {
       number: 1, first: "Devdas", last: "Bhattacharya", pos: "GK, CM, CDM", height: "Height: Undefined", weight:"Weight: Undefined", age: 14, foot: "Right",
-      stamina: 4, skillMoves: 1, ovr: 114, type: "gk",
+      stamina: 4, skillMoves: 1, ovr: 107, type: "gk",
       categories: {
-        Diving:      { total: 103, sub: { "Reflex Diving": 106, "Reach": 112 } },
-        Positioning: { total: 117, sub: { "Sweeper Positioning": 120, "Angle Coverage": 105 } },
-        Handling:    { total: 120, sub: { "Catching": 135, "Parrying": 106 } },
-        Reflexes:    { total: 101, sub: { "Reaction Save": 99, "One-on-One": 106 } },
-        Kicking:     { total: 126, sub: { "Goal Kicks": 122, "Short Kicks": 116 } },
-        Physical:    { total: 105, sub: { "Strength": 117, "Jumping": 105 } }
+        Diving:      { total: 102, sub: { "Reflex Diving": 106, "Reach": 112 } },
+        Positioning: { total: 105, sub: { "Sweeper Positioning": 120, "Angle Coverage": 105 } },
+        Handling:    { total: 108, sub: { "Catching": 135, "Parrying": 106 } },
+        Reflexes:    { total: 110, sub: { "Reaction Save": 99, "One-on-One": 106 } },
+        Kicking:     { total: 107, sub: { "Goal Kicks": 122, "Short Kicks": 116 } },
+        Physical:    { total: 102, sub: { "Strength": 117, "Jumping": 105 } }
       },
       traits: [
         { name: "Command of Area", desc: "Dominates crosses and claims the box with authority." },
@@ -254,30 +238,30 @@
     },
     {
       number: 2, first: "Sudipto Kr", last: "Koley", pos: "CB, RB", height:"Height: Undefined", weight:"Weight: Undefined", age: 14, foot: "Right",
-      stamina: 5, skillMoves: 2, ovr: 119, type: "Defensive",
+      stamina: 5, skillMoves: 2, ovr: 104, type: "Defensive",
       categories: {
-        Pace:      { total: 102, sub: { "Acceleration": 80, "Sprint Speed": 106 } },
-        Shooting:  { total: 92, sub: { "Finishing": 82, "Long Shot": 99, "Shot Power": 110, "Positioning": 108, "Volleys": 80, "Penalties": 72 } },
-        Passing:   { total: 110, sub: { "Short Passing": 109, "Long Passing": 119, "Vision": 117, "Crossing": 94, "Curve": 83, "Free Kick": 80 } },
-        Dribbling: { total: 80, sub: { "Dribbling": 81, "Ball Control": 79, "Agility": 97, "Reactions": 104 } },
-        Defending: { total: 120, sub: { "Marking": 118, "Standing Tackle": 116, "Sliding Tackle": 132, "Awareness": 116 } },
-        Physical:  { total: 106, sub: { "Strength": 110, "Aggression": 140, "Jumping": 102 } }
+        Pace:      { total: 105, sub: { "Acceleration": 80, "Sprint Speed": 106 } },
+        Shooting:  { total: 100, sub: { "Finishing": 82, "Long Shot": 99, "Shot Power": 110, "Positioning": 108, "Volleys": 80, "Penalties": 72 } },
+        Passing:   { total: 111, sub: { "Short Passing": 109, "Long Passing": 119, "Vision": 117, "Crossing": 94, "Curve": 83, "Free Kick": 80 } },
+        Dribbling: { total: 95, sub: { "Dribbling": 81, "Ball Control": 79, "Agility": 97, "Reactions": 104 } },
+        Defending: { total: 112, sub: { "Marking": 118, "Standing Tackle": 116, "Sliding Tackle": 132, "Awareness": 116 } },
+        Physical:  { total: 98, sub: { "Strength": 110, "Aggression": 140, "Jumping": 102 } }
       },
       traits: [
-        { name: "Last-Ditch Tackle", desc: "Reads danger early and recovers to make the block." },
-        { name: "Composed Build-Up", desc: "Comfortable starting attacks from the back line." }
+        { name: "Dives Into Agressive Tackles", },
+        { name: "No Ball Recovery", }
       ]
     },
     {
       number: 3, first: "Sanket", last: "Dey", pos: "CB, CDM",height:'Height: Undefined', weight:'Weight: Undefined', age: 14, foot: "Left",
-      stamina: 5, skillMoves: 3, ovr: 118, type: "Defensive",
+      stamina: 5, skillMoves: 3, ovr: 100, type: "Defensive",
       categories: {
-        Pace:      { total: 104, sub: { "Acceleration": 90, "Sprint Speed": 108 } },
-        Shooting:  { total: 80, sub: { "Finishing": 50, "Long Shot": 100, "Shot Power": 109, "Positioning": 112, "Volleys": 90, "Penalties": 89 } },
-        Passing:   { total: 110, sub: { "Short Passing": 106, "Long Passing": 110, "Vision": 112, "Crossing": 71, "Curve": 50, "Free Kick": 38 } },
-        Dribbling: { total: 91, sub: { "Dribbling": 70, "Ball Control": 103, "Agility": 81, "Reactions": 109 } },
-        Defending: { total: 118, sub: { "Marking": 116, "Standing Tackle": 115, "Sliding Tackle": 121, "Awareness": 112 } },
-        Physical:  { total: 110, sub: { "Strength": 98, "Aggression": 146, "Jumping": 100 } }
+        Pace:      { total: 95, sub: { "Acceleration": 90, "Sprint Speed": 108 } },
+        Shooting:  { total: 102, sub: { "Finishing": 50, "Long Shot": 100, "Shot Power": 109, "Positioning": 112, "Volleys": 90, "Penalties": 89 } },
+        Passing:   { total: 95, sub: { "Short Passing": 106, "Long Passing": 110, "Vision": 112, "Crossing": 71, "Curve": 50, "Free Kick": 38 } },
+        Dribbling: { total: 90, sub: { "Dribbling": 70, "Ball Control": 103, "Agility": 81, "Reactions": 109 } },
+        Defending: { total: 113, sub: { "Marking": 116, "Standing Tackle": 115, "Sliding Tackle": 121, "Awareness": 112 } },
+        Physical:  { total: 105, sub: { "Strength": 98, "Aggression": 146, "Jumping": 100 } }
       },
       traits: [
         { name: "Anticipation", desc: "Steps in early to cut out through balls." },
@@ -289,14 +273,14 @@
     {
       number: 4, first: "Satyam", last: "Mallik", pos: "CM, CDM, CAM",
       height: "Height: Undefined", weight: "Weight: Undefined", age: 14, foot: "Right",
-      stamina: 5, skillMoves: 3, ovr: 120, type: "Defensive Midfielder",
+      stamina: 5, skillMoves: 3, ovr: 109, type: "Defensive Midfielder",
       categories: {
-        Pace:      { total: 102, sub: { "Acceleration": 90, "Sprint Speed": 103 } },
-        Shooting:  { total: 119, sub: { "Finishing": 106, "Long Shot": 117, "Shot Power": 120, "Positioning": 106, "Volleys": 110, "Penalties": 109 } },
-        Passing:   { total: 120, sub: { "Short Passing": 118, "Long Passing": 126, "Vision": 117, "Crossing": 120, "Curve": 115, "Free Kick": 135 } },
-        Dribbling: { total: 103, sub: { "Dribbling": 101, "Ball Control": 119, "Agility": 110, "Reactions": 116 } },
-        Defending: { total: 120, sub: { "Marking": 110, "Standing Tackle": 119, "Sliding Tackle": 107, "Awareness": 118 } },
-        Physical:  { total: 118, sub: { "Strength": 137, "Aggression": 126, "Jumping": 118 } }
+        Pace:      { total: 106, sub: { "Acceleration": 90, "Sprint Speed": 103 } },
+        Shooting:  { total: 105, sub: { "Finishing": 106, "Long Shot": 117, "Shot Power": 120, "Positioning": 106, "Volleys": 110, "Penalties": 109 } },
+        Passing:   { total: 113, sub: { "Short Passing": 118, "Long Passing": 126, "Vision": 117, "Crossing": 120, "Curve": 115, "Free Kick": 135 } },
+        Dribbling: { total: 95, sub: { "Dribbling": 101, "Ball Control": 119, "Agility": 110, "Reactions": 116 } },
+        Defending: { total: 112, sub: { "Marking": 110, "Standing Tackle": 119, "Sliding Tackle": 107, "Awareness": 118 } },
+        Physical:  { total: 112, sub: { "Strength": 137, "Aggression": 126, "Jumping": 118 } }
       },
       traits: [
         { name: "All-Round Player", desc: "Can Adopt playing styles of different positions for assisting the players playing in that position." },
@@ -308,14 +292,14 @@
     {
       number: 5, first: "Abhra", last: "Manna", pos: "CB",
       height: "Height: Undefined", weight: "Weight: Undefined", age: 14, foot: "Right",
-      stamina: 5, skillMoves: 1, ovr: 106, type: "Defensive",
+      stamina: 5, skillMoves: 1, ovr: 92, type: "Defensive",
       categories: {
         Pace:      { total: 90, sub: { "Acceleration": 85, "Sprint Speed": 93 } },
-        Shooting:  { total: 101, sub: { "Finishing": 80, "Long Shot": 82, "Shot Power": 96, "Positioning": 104, "Volleys": 80, "Penalties": 104 } },
-        Passing:   { total: 106, sub: { "Short Passing": 113, "Long Passing": 103, "Vision": 104, "Crossing": 76, "Curve": 58, "Free Kick": 42 } },
-        Dribbling: { total: 81, sub: { "Dribbling": 75, "Ball Control": 106, "Agility": 83, "Reactions": 94 } },
-        Defending: { total: 110, sub: { "Marking": 114, "Standing Tackle": 97, "Sliding Tackle": 76, "Awareness": 101 } },
-        Physical:  { total: 117, sub: { "Strength": 105, "Aggression": 80, "Jumping": 100 } }
+        Shooting:  { total: 85, sub: { "Finishing": 80, "Long Shot": 82, "Shot Power": 96, "Positioning": 104, "Volleys": 80, "Penalties": 104 } },
+        Passing:   { total: 95, sub: { "Short Passing": 113, "Long Passing": 103, "Vision": 104, "Crossing": 76, "Curve": 58, "Free Kick": 42 } },
+        Dribbling: { total: 80, sub: { "Dribbling": 75, "Ball Control": 106, "Agility": 83, "Reactions": 94 } },
+        Defending: { total: 98, sub: { "Marking": 114, "Standing Tackle": 97, "Sliding Tackle": 76, "Awareness": 101 } },
+        Physical:  { total: 102, sub: { "Strength": 105, "Aggression": 80, "Jumping": 100 } }
       },
       traits: [
         { name: "Qutab Minar Advantages", desc: "Excels in defensive parameters more than his stats sometimes due to his insane height." },
@@ -336,28 +320,27 @@
         Physical:  { total: 109, }
       },
       traits: [
-        { name: "Power Striker", desc: "Scores goals and rarely misses chances." },
-        { name: "From Attacking To Saving", desc: "Can play incredibly as both pure striker and can play brilliantly as Goalkeeper due to insane reflexes and great height." },
-        { name: "Aggresive", desc: "Loves to sledge opponents through words and physical strength." },
-        { name: "Mr. Comeback", desc: "Can play calmly and score goals for the team at critical situations." }
+        { name: "Long Shot Taker", },
+        { name: "Flair",  },
+        { name: "Aggresive",},
+        { name: "Mr. Comeback",  }
       ]
     },
     {
       number: 7, first: "Sayan Kr", last: "Mandal", pos: "RW, LW",
       height: "Height: Undefined", weight: "Weight: Undefined", age: 14, foot: "Right",
-      stamina: 4, skillMoves: 4, ovr: 118, type: "Attacking Winger",
+      stamina: 4, skillMoves: 4, ovr: 99, type: "Attacking Winger",
       categories: {
-        Pace:      { total: 119, sub: { "Acceleration": 126, "Sprint Speed": 124 } },
-        Shooting:  { total: 105, sub: { "Finishing": 110, "Long Shot": 94, "Shot Power": 84, "Positioning": 118, "Volleys": 80, "Penalties": 100 } },
-        Passing:   { total: 119, sub: { "Short Passing": 126, "Long Passing": 134, "Vision": 140, "Crossing": 146, "Curve": 117, "Free Kick": 120 } },
-        Dribbling: { total: 116, sub: { "Dribbling": 124, "Ball Control": 114, "Agility": 122, "Reactions": 109 } },
-        Defending: { total: 30, sub: { "Marking": 28, "Standing Tackle": 30, "Sliding Tackle": 25, "Awareness": 35 } },
-        Physical:  { total: 81, sub: { "Strength": 90, "Aggression": 40, "Jumping": 78 } }
+        Pace:      { total: 111, sub: { "Acceleration": 126, "Sprint Speed": 124 } },
+        Shooting:  { total: 96, sub: { "Finishing": 110, "Long Shot": 94, "Shot Power": 84, "Positioning": 118, "Volleys": 80, "Penalties": 100 } },
+        Passing:   { total: 111, sub: { "Short Passing": 126, "Long Passing": 134, "Vision": 140, "Crossing": 146, "Curve": 117, "Free Kick": 120 } },
+        Dribbling: { total: 100, sub: { "Dribbling": 124, "Ball Control": 114, "Agility": 122, "Reactions": 109 } },
+        Defending: { total: 85, sub: { "Marking": 28, "Standing Tackle": 30, "Sliding Tackle": 25, "Awareness": 35 } },
+        Physical:  { total: 90, sub: { "Strength": 90, "Aggression": 40, "Jumping": 78 } }
       },
       traits: [
-        { name: "Playmaker", desc: "Makes brilliant mind-blowing chances for attackers in tight situations." },
-        { name: "Positioning Master", desc: "Always finds the yard of space in the box." },
-        { name: "Early Crosser", desc: "Can cross to striker and wingers efficiently, increasing goal chances." }
+        { name: "Playmaker", },
+        { name: "Lack Of Awareness", },
       ]
     },
     {
@@ -373,10 +356,9 @@
         Physical:  { total: 109,}
       },
       traits: [
-        { name: "Pace Merchant", desc: "Runs faster than defenders can even react." },
-        { name: "Flair", desc: "Adds a touch of the unexpected in tight spaces." },
-        { name: "Dribbler", desc: "Beats a marker one-on-one at the first time of asking. Can sometimes dribble 4-5 players at once." },
-        { name: "Old Styled", desc:"Plays like the old fashioned wingers, who can dribble and score goals in tight situations. Doesn't believe in agression and sledging. Maintains friendly relations with teammates and opponents too. Remains calm in tight situations. Helps in comebacks." }
+        { name: "Chance Creator",  },
+        { name: "Flair", },
+        { name: "Long Shot Misser", }
       ]
     }
   ];
@@ -432,7 +414,6 @@
   }
 
   function tabContentHTML(p, tab){
-    if(tab === 'attributes') return attributesTabHTML(p);
     if(tab === 'traits') return traitsTabHTML(p);
     if(tab === 'transfer') return transferTabHTML(p);
     return summaryTabHTML(p);
@@ -441,7 +422,6 @@
   function tabbarHTML(tab){
     const tabs = [
       { key: 'summary', label: 'Summary' },
-      { key: 'attributes', label: 'Attributes' },
       { key: 'traits', label: 'Traits' },
       { key: 'transfer', label: 'Transfer' }
     ];
