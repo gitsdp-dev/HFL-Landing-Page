@@ -669,8 +669,8 @@
     <a href="#home">Home</a>
     <a href="#clubs">Teams</a>
     <a href="#players">Players</a>
-    <a href="lions_stats.html">HL Player Stats</a>
-    <a href="hfc_stats.html">HFC Player Stats</a>
+    <a href="lions_stats.html">HFC Player Stats</a>
+    <a href="hfc_stats.html">HL Player Stats</a>
     <a href="#fixture">Matches</a>
     <a href="#standings">Standings</a>
   </div>
@@ -846,15 +846,13 @@
     <div class="fixture-grid">
       <div class="fixture-copy">
         <span class="eyebrow on-dark">Next Fixture</span>
-        <div class="fixture-meta">Matchday 3 · Tuesday, July 21 · 01:04 PM</div>
+        <div class="fixture-meta">Matchday 3 · Tuesday, July 13</div>
         <div class="matchup">
           <div class="team">
             <h3>Heritage Lions</h3>
-            <div class="tag">Home</div>
           </div>
           <div class="team">
             <h3>Heritage FC</h3>
-            <div class="tag">Away</div>
           </div>
         </div>
       </div>
@@ -910,25 +908,24 @@
   // `pos`   = specific on-pitch position shown in the Players table.
   // `saves` = goalkeeper-only stat, shown instead of Goals/Assists for GK rows.
   const roster = [
-    { number: 1,  name: "Devdas Bhattacharya", club: "hfc", clubName: "Heritage FC", group: "GK", pos: "GK",  saves: 4, apps: 1, goals: 0, assists: 0, yellow: 0, red: 0 },
-    { number: 2,  name: "Umesh Chakraborty",   club: "hfc", clubName: "Heritage FC", group: "MF", pos: "CDM", apps: 0, goals: 0, assists: 0, yellow: 0, red: 0 },
+    { number: 13,  name: "Devdas Bhattacharya", club: "hfc", clubName: "Heritage FC", group: "GK", pos: "GK",  saves: 4, apps: 1, goals: 0, assists: 0, yellow: 0, red: 0 },
     { number: 3,  name: "Sanket Dey",          club: "hfc", clubName: "Heritage FC", group: "DF", pos: "CB",  apps: 2, goals: 0, assists: 0, yellow: 3, red: 0 },
     { number: 4,  name: "Abhra Manna",         club: "hfc", clubName: "Heritage FC", group: "DF", pos: "CB",  apps: 2, goals: 0, assists: 0, yellow: 0, red: 0 },
     { number: 5,  name: "Sudipto Kr Koley",    club: "hfc", clubName: "Heritage FC", group: "DF", pos: "RB",  apps: 2, goals: 0, assists: 0, yellow: 1, red: 0 },
-    { number: 6,  name: "Satyam Mallik",       club: "hfc", clubName: "Heritage FC", group: "MF", pos: "CM",  apps: 2, goals: 0, assists: 0, yellow: 0, red: 0 },
-    { number: 20, name: "Souradipta Patra",    club: "hfc", clubName: "Heritage FC", group: "FW", pos: "ST",  apps: 2, goals: 1, assists: 1, yellow: 0, red: 0 },
-    { number: 18, name: "Archisman De",        club: "hfc", clubName: "Heritage FC", group: "FW", pos: "LW",  apps: 2, goals: 3, assists: 0, yellow: 0, red: 0 },
-    { number: 75, name: "Sayan Kr Mandal",     club: "hfc", clubName: "Heritage FC", group: "FW", pos: "RW",  apps: 2, goals: 0, assists: 1, yellow: 0, red: 0 },
+    { number: 6,  name: "Satyam Mallik",       club: "hfc", clubName: "Heritage FC", group: "MF", pos: "CM",  apps: 2, goals: 0, assists: 2, yellow: 0, red: 0 },
+    { number: 20, name: "Souradipta Patra(VC)",    club: "hfc", clubName: "Heritage FC", group: "FW", pos: "ST",  apps: 2, goals: 1, assists: 0, yellow: 0, red: 0 },
+    { number: 7, name: "Archisman De(C)",        club: "hfc", clubName: "Heritage FC", group: "FW", pos: "LW",  apps: 2, goals: 3, assists: 0, yellow: 0, red: 0 },
+    { number: 75, name: "Sayan Kr Mandal",     club: "hfc", clubName: "Heritage FC", group: "FW", pos: "RW",  apps: 2, goals: 0, assists: 0, yellow: 0, red: 0 },
 
-    { number: 1,  name: "Anindya Banerjee", club: "lions", clubName: "Heritage Lions", group: "GK", pos: "GK", saves: 7, apps: 2, goals: 2, assists: 0, yellow: 0, red: 0 },
-    { number: 2,  name: "Ayush Goswami",    club: "lions", clubName: "Heritage Lions", group: "DF", pos: "RB", apps: 2, goals: 0, assists: 0, yellow: 0, red: 0 },
-    { number: 3,  name: "Abhinav Biswas",   club: "lions", clubName: "Heritage Lions", group: "DF", pos: "CB", apps: 2, goals: 0, assists: 0, yellow: 0, red: 0 },
-    { number: 4,  name: "Devmalya Santra",  club: "lions", clubName: "Heritage Lions", group: "DF", pos: "CB", apps: 2, goals: 0, assists: 0, yellow: 0, red: 0 },
-    { number: 5,  name: "Rishav Santra",    club: "lions", clubName: "Heritage Lions", group: "DF", pos: "LB", apps: 2, goals: 0, assists: 0, yellow: 0, red: 0 },
-    { number: 6,  name: "Alekhya Laha",     club: "lions", clubName: "Heritage Lions", group: "DF", pos: "CB", apps: 2, goals: 0, assists: 0, yellow: 0, red: 0 },
-    { number: 8,  name: "Abin Ray",         club: "lions", clubName: "Heritage Lions", group: "MF", pos: "CAM", apps: 2, goals: 0, assists: 0, yellow: 0, red: 0 },
-    { number: 9,  name: "Nirman Mandal",    club: "lions", clubName: "Heritage Lions", group: "FW", pos: "ST", apps: 2, goals: 0, assists: 1, yellow: 0, red: 0 },
-    { number:10,  name: "Rohan Mandal",     club: "lions", clubName: "Heritage Lions", group: "FW", pos: "RW", apps: 2, goals: 1, assists: 0, yellow: 0, red: 0 }
+    { number: 1,  name: "Anindya Banerjee(C)", club: "lions", clubName: "Heritage Lions", group: "GK", pos: "GK", saves: 8, apps: 2, goals: 1, assists: 1, yellow: 0, red: 0 },
+    { number: 5,  name: "Ayush Goswami",    club: "lions", clubName: "Heritage Lions", group: "DF", pos: "RB", apps: 2, goals: 0, assists: 0, yellow: 0, red: 0 },
+    { number: 2,  name: "Abhinav Biswas",   club: "lions", clubName: "Heritage Lions", group: "DF", pos: "CB", apps: 2, goals: 0, assists: 0, yellow: 0, red: 0 },
+    { number: 3,  name: "Devmalya Santra",  club: "lions", clubName: "Heritage Lions", group: "DF", pos: "CB", apps: 2, goals: 0, assists: 0, yellow: 0, red: 0 },
+    { number: 4,  name: "Rishav Santra",    club: "lions", clubName: "Heritage Lions", group: "DF", pos: "LB", apps: 2, goals: 0, assists: 0, yellow: 0, red: 0 },
+    { number: 69,  name: "Alekhya Laha",     club: "lions", clubName: "Heritage Lions", group: "DF", pos: "CB", apps: 2, goals: 0, assists: 0, yellow: 0, red: 0 },
+    { number: 18,  name: "Abin Ray",         club: "lions", clubName: "Heritage Lions", group: "MF", pos: "CAM", apps: 2, goals: 0, assists: 1, yellow: 0, red: 0 },
+    { number: 10,  name: "Nirman Mandal(VC)",    club: "lions", clubName: "Heritage Lions", group: "FW", pos: "ST", apps: 2, goals: 1, assists: 0, yellow: 0, red: 0 },
+    { number: 7,  name: "Rohan Mandal",     club: "lions", clubName: "Heritage Lions", group: "FW", pos: "ST", apps: 2, goals: 1, assists: 1, yellow: 0, red: 0 }
   ];
 
   const gkRosterBody = document.getElementById('gk-roster-body');
