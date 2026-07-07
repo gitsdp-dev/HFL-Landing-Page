@@ -209,7 +209,7 @@
 
 <script>
   // ---------------------------------------------------------------
-  // Heritage Lions squad data.
+  // Heritage FC squad data.
   //
   // Every player carries a `categories` breakdown, used by the
   // Summary tab to show headline totals, plus a `traits` list for the Traits tab.
@@ -219,8 +219,8 @@
   // ---------------------------------------------------------------
   const lions = [
     {
-      number: 1, first: "Devdas", last: "Bhattacharya", pos: "GK, CM, CDM", height: "Height: Undefined", weight:"Weight: Undefined", age: 14, foot: "Right",
-      stamina: 4, skillMoves: 1, ovr: 107, type: "gk",
+      number: 1, first: "Devdas", last: "Bhattacharya", pos: "GK, CM, CDM, CAM", height: "Height: Undefined", weight:"Weight: Undefined", age: 14, foot: "Right",
+      stamina: 4, skillMoves: 4, ovr: 107, type: "gk",
       categories: {
         Diving:      { total: 102, sub: { "Reflex Diving": 106, "Reach": 112 } },
         Positioning: { total: 105, sub: { "Sweeper Positioning": 120, "Angle Coverage": 105 } },
@@ -230,15 +230,14 @@
         Physical:    { total: 102, sub: { "Strength": 117, "Jumping": 105 } }
       },
       traits: [
-        { name: "Command of Area", desc: "Dominates crosses and claims the box with authority." },
-        { name: "Shot Stopper", desc: "Excels at reaction saves from close range." },
-        { name: "Long Thrower", desc: "Starts counters quickly with an accurate long throw." },
-        { name: "Sweeper Keeper", desc: "Quickly rushes off the line to intercept through balls." }
+        { name: "Playmaker", desc: "Dominates crosses and claims the box with authority." },
+        { name: "Awareness", desc: "Excels at reaction saves from close range." },
+        { name: "Agressive", desc: "Starts counters quickly with an accurate long throw." },
       ]
     },
     {
-      number: 2, first: "Sudipto Kr", last: "Koley", pos: "CB, RB", height:"Height: Undefined", weight:"Weight: Undefined", age: 14, foot: "Right",
-      stamina: 5, skillMoves: 2, ovr: 104, type: "Defensive",
+      number: 2, first: "Sudipto Kr", last: "Koley", pos: "RB", height:"Height: Undefined", weight:"Weight: Undefined", age: 14, foot: "Right",
+      stamina: 2, skillMoves: 2, ovr: 104, type: "Defensive",
       categories: {
         Pace:      { total: 105, sub: { "Acceleration": 80, "Sprint Speed": 106 } },
         Shooting:  { total: 100, sub: { "Finishing": 82, "Long Shot": 99, "Shot Power": 110, "Positioning": 108, "Volleys": 80, "Penalties": 72 } },
@@ -253,8 +252,8 @@
       ]
     },
     {
-      number: 3, first: "Sanket", last: "Dey", pos: "CB, CDM",height:'Height: Undefined', weight:'Weight: Undefined', age: 14, foot: "Left",
-      stamina: 5, skillMoves: 3, ovr: 100, type: "Defensive",
+      number: 3, first: "Sanket", last: "Dey", pos: "CB, CDM, RB", height:'Height: Undefined', weight:'Weight: Undefined', age: 14, foot: "Left",
+      stamina: 4, skillMoves: 2, ovr: 100, type: "Defensive",
       categories: {
         Pace:      { total: 95, sub: { "Acceleration": 90, "Sprint Speed": 108 } },
         Shooting:  { total: 102, sub: { "Finishing": 50, "Long Shot": 100, "Shot Power": 109, "Positioning": 112, "Volleys": 90, "Penalties": 89 } },
@@ -264,14 +263,12 @@
         Physical:  { total: 105, sub: { "Strength": 98, "Aggression": 146, "Jumping": 100 } }
       },
       traits: [
-        { name: "Anticipation", desc: "Steps in early to cut out through balls." },
-        { name: "Physical Presence", desc: "Uses strength to shield the ball and win duels." },
-        { name: "Composed Build-Up", desc: "Comfortable starting attacks from the back line." },
-        { name: "Over Agressiveness", desc: "Shows very much agression, including getting major yellow and red cards in matches. often gives slangs and sledges players." }
+        { name: "Standing Tackle King", desc: "Steps in early to cut out through balls." },
+        { name: "Over Agressiveness (Slang User)", desc: "Shows very much agression, including getting major yellow and red cards in matches. often gives slangs and sledges players." }
       ]
     },
     {
-      number: 4, first: "Satyam", last: "Mallik", pos: "CM, CDM, CAM",
+      number: 4, first: "Satyam", last: "Mallik", pos: "CM, CDM, CAM, CB",
       height: "Height: Undefined", weight: "Weight: Undefined", age: 14, foot: "Right",
       stamina: 5, skillMoves: 3, ovr: 109, type: "Defensive Midfielder",
       categories: {
@@ -283,16 +280,16 @@
         Physical:  { total: 112, sub: { "Strength": 137, "Aggression": 126, "Jumping": 118 } }
       },
       traits: [
-        { name: "All-Round Player", desc: "Can Adopt playing styles of different positions for assisting the players playing in that position." },
-        { name: "Move Predictor", desc: "Can predict the next move of attackers and midfielders (either it is for dribbling or for passing)." },
-        { name: "Box-To-Box Player", desc: "Assists in attack from defensive mid and majorly plays defensively, tackling pace blasting attackers calmly." },
-        { name: "Backbone of The Team", desc: "The player is the backbone of the team, he is the one who can change the game with his defensive abilities and ball possession and can assist the team in any circumstances (especially helpful during comebacks)." }
+        { name: "Long Shot Taker", },
+        { name: "Flair", },
+        { name: "Agressive",  },
+        { name: "Backbone of The Team", }
       ]
     },
     {
       number: 5, first: "Abhra", last: "Manna", pos: "CB",
       height: "Height: Undefined", weight: "Weight: Undefined", age: 14, foot: "Right",
-      stamina: 5, skillMoves: 1, ovr: 92, type: "Defensive",
+      stamina: 3, skillMoves: 1, ovr: 92, type: "Defensive",
       categories: {
         Pace:      { total: 90, sub: { "Acceleration": 85, "Sprint Speed": 93 } },
         Shooting:  { total: 85, sub: { "Finishing": 80, "Long Shot": 82, "Shot Power": 96, "Positioning": 104, "Volleys": 80, "Penalties": 104 } },
@@ -302,15 +299,14 @@
         Physical:  { total: 102, sub: { "Strength": 105, "Aggression": 80, "Jumping": 100 } }
       },
       traits: [
-        { name: "Qutab Minar Advantages", desc: "Excels in defensive parameters more than his stats sometimes due to his insane height." },
-        { name: "Blocker", desc:"Blocks shots due to height advantage from major attackers. Can Clear ball efficiently to players directly." },
-        { name: "Heading Threat", desc:"Due to height advantage, can block vision of players for header goals of corners." }
+        { name: "Blocker", },
+        { name: "Lack Of Awareness", },
       ]
     },
     {
-      number: 6, first: "Archisman", last: "De", pos: "ST, GK",
+      number: 6, first: "Archisman", last: "De", pos: "LW, ST, GK",
       height: "Height: Undefined", weight: "Weight: Undefined", age: 14, foot: "Right",
-      stamina: 5, skillMoves: 4, ovr: 112, type: "Attacking (Pure Striker)",
+      stamina: 5, skillMoves: 5, ovr: 112, type: "Attacking (Pure Striker)",
       categories: {
         Pace:      { total: 113, },
         Shooting:  { total: 114, },
@@ -327,9 +323,9 @@
       ]
     },
     {
-      number: 7, first: "Sayan Kr", last: "Mandal", pos: "RW, LW",
+      number: 7, first: "Sayan Kr", last: "Mandal", pos: "RW",
       height: "Height: Undefined", weight: "Weight: Undefined", age: 14, foot: "Right",
-      stamina: 4, skillMoves: 4, ovr: 99, type: "Attacking Winger",
+      stamina: 3, skillMoves: 4, ovr: 99, type: "Attacking Winger",
       categories: {
         Pace:      { total: 111, sub: { "Acceleration": 126, "Sprint Speed": 124 } },
         Shooting:  { total: 96, sub: { "Finishing": 110, "Long Shot": 94, "Shot Power": 84, "Positioning": 118, "Volleys": 80, "Penalties": 100 } },
@@ -344,9 +340,9 @@
       ]
     },
     {
-      number: 8, first: "Souradipta", last: "Patra", pos: "LW, ST, CAM",
+      number: 8, first: "Souradipta", last: "Patra", pos: "LW, ST, CAM, RW",
       height: "Height: Undefined", weight: "Weight: Undefined", age: 14, foot: "Right",
-      stamina: 4, skillMoves: 5, ovr: 110, type: "Balanced Attacking",
+      stamina: 3, skillMoves: 5, ovr: 110, type: "Balanced Attacking",
       categories: {
         Pace:      { total: 114,},
         Shooting:  { total: 113,},
@@ -358,7 +354,8 @@
       traits: [
         { name: "Chance Creator",  },
         { name: "Flair", },
-        { name: "Long Shot Misser", }
+        { name: "Long Shot Misser", },
+        { name: "Neymar of School",}
       ]
     }
   ];
