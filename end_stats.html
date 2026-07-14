@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heritage F.L. — Season One Honours</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="favicon" href="resized_favicon-removebg-preview.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,600;1,700&family=Source+Serif+4:ital,wght@0,400;0,500;0,600;1,500&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream: #f7f3ea;
+    --cream-dim: #efe9db;
+    --ink: #17181c;
+    --ink-soft: #2b2c31;
+    --navy: #1b2a4a;
+    --navy-deep: #101a30;
+    --gold: #a9822f;
+    --gold-soft: #c79f4f;
+    --line: rgba(23,24,28,0.14);
+    --line-light: rgba(247,243,234,0.18);
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; background: var(--cream); color: var(--ink);
+    font-family:'Source Serif 4', Georgia, serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .eyebrow{
+    font-family:'Jost', sans-serif; font-size:11px; letter-spacing:0.16em;
+    text-transform:uppercase; color: var(--gold); font-weight:600;
+  }
+  .eyebrow.on-dark{ color: var(--gold-soft); }
+  h1,h2,h3,.serif{ font-family:'Playfair Display', Georgia, serif; margin:0; }
+
+  /* Top bar */
+  .topbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 18px 40px; border-bottom:1px solid var(--line);
+    background: var(--cream); position:sticky; top:0; z-index:20;
+  }
+  .back-link{
+    font-family:'Jost', sans-serif; font-size:12.5px; letter-spacing:0.08em;
+    text-transform:uppercase; font-weight:600; color: var(--ink-soft);
+    text-decoration:none; display:flex; align-items:center; gap:8px;
+  }
+  .back-link:hover{ color: var(--ink); }
+  .topbar-title{ display:flex; align-items:center; gap:12px; }
+  .topbar-title .crest{
+    width:34px; height:34px; border-radius:50%; background: var(--navy);
+    border:1px solid var(--gold); display:flex; align-items:center; justify-content:center;
+    font-family:'Playfair Display', serif; font-weight:700; font-size:12px; color: var(--gold-soft);
+  }
+  .topbar-title .t{ font-family:'Playfair Display', serif; font-weight:700; font-size:16.5px; }
+
+  .wrap{ max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+
+  /* Champion banner */
+  .champion-banner{
+    background:
+      radial-gradient(ellipse at top right, rgba(169,130,47,0.18) 0%, transparent 55%),
+      linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color: var(--cream);
+    padding: 64px 0 54px;
+    border-bottom: 3px solid var(--gold);
+  }
+  .champion-head{
+    display:flex; align-items:center; gap: 34px; flex-wrap:wrap;
+    margin-bottom: 46px;
+  }
+  .champion-crest{
+    width: 128px; height:128px; border-radius:50%;
+    background: #fdfcf8; border: 3px solid var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0; overflow:hidden;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+  }
+  .champion-crest img{ width:100%; height:100%; object-fit:contain; padding:12px; }
+  .champion-crest .fallback{
+    font-family:'Playfair Display', serif; font-weight:800; font-size:30px; color: var(--navy);
+  }
+  .champion-titles .trophy-line{
+    display:flex; align-items:center; gap:10px; margin-bottom:12px;
+  }
+  .champion-titles .trophy-line .tf{ font-size:20px; }
+  .champion-titles h1{
+    font-size: clamp(38px, 5vw, 60px); font-weight:800; color:#fbf8f1; letter-spacing:-0.01em;
+  }
+  .champion-titles p{
+    font-family:'Source Serif 4', serif; font-size:15.5px; line-height:1.6;
+    color: rgba(247,243,234,0.78); max-width: 560px; margin-top: 14px;
+  }
+
+  .lineup-label{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-bottom: 14px; margin-bottom: 24px; border-bottom: 1px solid var(--line-light);
+    flex-wrap:wrap; gap:10px;
+  }
+  .lineup-label .form-tag{
+    font-family:'Jost', sans-serif; font-size:11px; letter-spacing:0.1em;
+    text-transform:uppercase; color: rgba(247,243,234,0.55);
+  }
+
+  .lineup-grid{ display:flex; flex-direction:column; gap: 26px; }
+  .lineup-row{ display:flex; justify-content:space-evenly; flex-wrap:wrap; gap: 18px; }
+  .lineup-token{ display:flex; flex-direction:column; align-items:center; gap:8px; width: 92px; }
+  .lineup-token .ln-num{
+    width:38px; height:38px; border-radius:50%;
+    background: #fdfcf8; border: 2px solid var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Playfair Display', serif; font-weight:800; font-size:14px; color: var(--ink);
+  }
+  .lineup-token .ln-name{
+    font-family:'Jost', sans-serif; font-size:10.5px; letter-spacing:0.03em;
+    color:#fbf8f1; text-align:center; line-height:1.3;
+  }
+  .lineup-token .ln-pos{
+    font-family:'Jost', sans-serif; font-size:9px; letter-spacing:0.1em;
+    text-transform:uppercase; color: var(--gold-soft);
+  }
+
+  /* Awards section */
+  .awards-section{ padding: 90px 0 100px; }
+  .section-head{
+    display:flex; align-items:flex-end; justify-content:space-between;
+    margin-bottom: 44px; flex-wrap:wrap; gap: 16px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 26px;
+  }
+  .section-head h2{ font-size: 40px; font-weight:700; margin-top:8px; }
+
+  .awards-grid{
+    display:grid; grid-template-columns: repeat(2, 1fr); gap: 26px;
+  }
+  .award-card{
+    border: 1px solid var(--line); background:#fdfcf8;
+    padding: 30px 32px; display:flex; gap: 22px; align-items:center;
+    transition: box-shadow .2s ease, transform .2s ease;
+  }
+  .award-card:hover{ box-shadow: 0 10px 26px rgba(23,24,28,0.08); transform: translateY(-2px); }
+  .award-card.full{ grid-column: 1 / -1; }
+  .award-portrait{
+    width:76px; height:76px; border-radius:50%; flex-shrink:0;
+    background: linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 100%);
+    border: 2px solid var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Playfair Display', serif; font-weight:800; font-size:24px; color: rgba(247,243,234,0.92);
+  }
+  .award-info{ flex:1; }
+  .award-info .award-label{
+    font-family:'Jost', sans-serif; font-size:10.5px; letter-spacing:0.12em;
+    text-transform:uppercase; color: var(--gold); font-weight:600; margin-bottom:6px;
+  }
+  .award-info h3{ font-size:22px; font-weight:700; }
+  .award-info .club-line{
+    font-family:'Jost', sans-serif; font-size:11.5px; letter-spacing:0.06em;
+    text-transform:uppercase; color:#8b8b8b; margin-top:6px;
+  }
+  .award-stat{
+    text-align:right; flex-shrink:0; padding-left: 16px;
+    border-left: 1px solid var(--line);
+  }
+  .award-stat .an{
+    font-family:'Playfair Display', serif; font-weight:800; font-size:30px; color: var(--navy);
+  }
+  .award-stat .al{
+    font-family:'Jost', sans-serif; font-size:10px; letter-spacing:0.1em;
+    text-transform:uppercase; color:#8b8b8b; margin-top:4px;
+  }
+
+  footer{
+    background: var(--navy-deep); color: rgba(247,243,234,0.6);
+    text-align:center; padding: 28px 0;
+    font-family:'Jost', sans-serif; font-size:11px; letter-spacing:0.06em;
+  }
+
+  @media (max-width: 900px){
+    .wrap{ padding: 0 22px; }
+    .topbar{ padding: 16px 22px; }
+    .awards-grid{ grid-template-columns: 1fr; }
+    .champion-crest{ width:96px; height:96px; }
+    .lineup-row{ gap: 10px; }
+    .lineup-token{ width: 74px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="back-link" href="index.html">&larr; Back to Heritage F.L.</a>
+  <div class="topbar-title">
+    <div class="crest"><img src="resized_favicon-removebg-preview.png"></div>
+    <div class="t">Season One — Final Honours</div>
+  </div>
+</div>
+
+<section class="champion-banner">
+  <div class="wrap">
+    <div class="champion-head">
+      <div class="champion-crest">
+        <img src="https://hfl-season-1.vercel.app/h_fc-removebg-preview.png" alt="Heritage FC Crest"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="fallback" style="display:none;">HFC</div>
+      </div>
+      <div class="champion-titles">
+        <div class="trophy-line">
+          <span class="tf">🏆</span>
+          <span class="eyebrow on-dark">Season One Champions</span>
+        </div>
+        <h1>Heritage FC</h1>
+        <p>Crowned champions of the Heritage Football League's inaugural campaign. A season built on discipline at the back, a golden glove between the posts, and just enough magic up top to see the job through at The Cool Ground.</p>
+      </div>
+    </div>
+
+    <div class="lineup-label">
+      <span class="eyebrow on-dark">The Title-Winning XI</span>
+      <span class="form-tag">Heritage FC · Season 01 Squad</span>
+    </div>
+
+    <div class="lineup-grid">
+      <div class="lineup-row">
+        <div class="lineup-token">
+          <div class="ln-num">20</div>
+          <div class="ln-name">Souradipta Patra<br>(VC)</div>
+          <div class="ln-pos">LW , ST</div>
+        </div>
+        <div class="lineup-token">
+          <div class="ln-num">7</div>
+          <div class="ln-name">Archisman De<br>(C)</div>
+          <div class="ln-pos">ST</div>
+        </div>
+        <div class="lineup-token">
+          <div class="ln-num">75</div>
+          <div class="ln-name">Sayan Kr. Mandal</div>
+          <div class="ln-pos">RW</div>
+        </div>
+      </div>
+      <div class="lineup-row">
+        <div class="lineup-token">
+          <div class="ln-num">6</div>
+          <div class="ln-name">Satyam Mallik</div>
+          <div class="ln-pos">CaM, CDM, CM</div>
+        </div>
+      </div>
+      <div class="lineup-row">
+        <div class="lineup-token">
+          <div class="ln-num">3</div>
+          <div class="ln-name">Sanket Dey</div>
+          <div class="ln-pos">CB</div>
+        </div>
+        <div class="lineup-token">
+          <div class="ln-num">4</div>
+          <div class="ln-name">Abhra Manna</div>
+          <div class="ln-pos">CB</div>
+        </div>
+        <div class="lineup-token">
+          <div class="ln-num">5</div>
+          <div class="ln-name">Sudipto Kr. Koley</div>
+          <div class="ln-pos">CB</div>
+        </div>
+      </div>
+      <div class="lineup-row">
+        <div class="lineup-token">
+          <div class="ln-num">13</div>
+          <div class="ln-name">Devdas Bhattacharya</div>
+          <div class="ln-pos">GK</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="awards-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Chapter IV</span>
+        <h2>End of Season Honours</h2>
+      </div>
+    </div>
+
+    <div class="awards-grid">
+
+      <div class="award-card full">
+        <div class="award-portrait">SDP</div>
+        <div class="award-info">
+          <div class="award-label">POTS · Player of the Season</div>
+          <h3>Souradipta Patra</h3>
+          <div class="club-line">Heritage FC · LW, ST</div>
+        </div>
+        <div class="award-stat">
+          <div class="an">2, 1, 6</div>
+          <div class="al">Goals, Assists, Chances Created</div>
+        </div>
+      </div>
+
+      <div class="award-card">
+        <div class="award-portrait">AD</div>
+        <div class="award-info">
+          <div class="award-label">Top Goalscorer</div>
+          <h3>Archisman De</h3>
+          <div class="club-line">Heritage FC · ST</div>
+        </div>
+        <div class="award-stat">
+          <div class="an">3</div>
+          <div class="al">Goals</div>
+        </div>
+      </div>
+
+      <div class="award-card">
+        <div class="award-portrait">AB</div>
+        <div class="award-info">
+          <div class="award-label">Best Goalkeeper</div>
+          <h3>Anindya Banerjee</h3>
+          <div class="club-line">Heritage Lions · GK</div>
+        </div>
+        <div class="award-stat">
+          <div class="an">9</div>
+          <div class="al">Saves</div>
+        </div>
+      </div>
+
+      <div class="award-card">
+        <div class="award-portrait">AR</div>
+        <div class="award-info">
+          <div class="award-label">Best Emerging Player</div>
+          <h3>Abin Roy</h3>
+          <div class="club-line">Heritage Lions · CB</div>
+        </div>
+        <div class="award-stat">
+          <div class="an">3</div>
+          <div class="al">Apps</div>
+        </div>
+      </div>
+
+      <div class="award-card">
+        <div class="award-portrait">SM</div>
+        <div class="award-info">
+          <div class="award-label">Most Assists</div>
+          <h3>Satyam Mallik</h3>
+          <div class="club-line">Heritage FC · CAM, CDM, CM</div>
+        </div>
+        <div class="award-stat">
+          <div class="an">4</div>
+          <div class="al">Assist</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Heritage Football League. Made By © 2026 CodeCrafters. All rights reserved.
+</footer>
+
+</body>
+</html>
